@@ -25,9 +25,36 @@ namespace HubrisEditor.ProjectIO
             }
         }
 
+        public string CurrentPath
+        {
+            get
+            {
+                return m_currentPath;
+            }
+            set
+            {
+                m_currentPath = value;
+                NotifyPropertyChanged("CurrentPath");
+            }
+        }
+
+        public bool IsProjectLoaded
+        {
+            get
+            {
+                return m_isProjectLoaded;
+            }
+            set
+            {
+                m_isProjectLoaded = value;
+                NotifyPropertyChanged("IsProjectLoaded");
+            }
+        }
+
         public void NewProject(string name, string scenario)
         {
             CurrentCampaign = new Campaign(name, scenario);
+            IsProjectLoaded = true;
         }
 
         public void OpenProject(string path)
@@ -36,6 +63,7 @@ namespace HubrisEditor.ProjectIO
             XmlSerializer serializer = new XmlSerializer(typeof(Campaign));
             CurrentCampaign = serializer.Deserialize(fs) as Campaign;
             m_currentPath = path;
+            IsProjectLoaded = true;
 
         }
 
@@ -56,5 +84,6 @@ namespace HubrisEditor.ProjectIO
 
         private Campaign m_currentCampaign;
         private string m_currentPath;
+        private bool m_isProjectLoaded;
     }
 }

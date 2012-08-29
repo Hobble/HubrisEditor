@@ -3,11 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <DataTemplate x:Key="ScenariosListBoxItemTemplate">
-            <StackPanel Height="30" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Margin="7, 0, 0, 0" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-            </StackPanel>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Xaml/Styles/ColorBrushes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="ScenariosListBoxItemTemplate">
+                <StackPanel Height="30" Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Margin="7, 0, 0, 0" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="NewCommand" Command="ApplicationCommands.New" CanExecute="NewCommand_CanExecute" Executed="NewCommand_Executed"/>
@@ -40,12 +45,23 @@
             <MenuItem Header="Window"/>
             <MenuItem Header="Help"/>
         </Menu>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <ListBox x:Name="ScenariosListBox" Grid.Column="0" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+        <Grid Grid.Row="1" Background="{StaticResource ResourceKey=TealCheckers}">
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsProjectLoaded, FallbackValue=false, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="ScenariosListBox" Grid.Column="0" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
