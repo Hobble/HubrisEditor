@@ -1,5 +1,6 @@
 ﻿using HubrisEditor.ProjectIO;
 using HubrisEditor.Xaml.Windows;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,13 @@ namespace HubrisEditor
 
         private void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "XML Files (*.xml)|*.xml;";
+            bool result = (bool)dialog.ShowDialog();
+            if (result)
+            {
+                m_projectManager.OpenProject(dialog.FileName);
+            }
         }
 
         private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -105,7 +112,12 @@ namespace HubrisEditor
 
         private void SaveAsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            SaveFileDialog dialog = new SaveFileDialog();
+            bool result = (bool)dialog.ShowDialog();
+            if (result)
+            {
+                m_projectManager.SaveProjectAs(dialog.FileName);
+            }
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)

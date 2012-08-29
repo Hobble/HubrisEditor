@@ -5,9 +5,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace HubrisEditor.GameData
 {
+    [XmlRoot("Campaign")]
     public class Campaign : GameComponentRoot
     {
         public Campaign()
@@ -33,6 +35,7 @@ namespace HubrisEditor.GameData
             m_scenarios = new ObservableCollection<Scenario>();
         }
 
+        [XmlArray("Scenarios")]
         public ObservableCollection<Scenario> Scenarios
         {
             get
@@ -46,6 +49,7 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("Name")]
         public string Name
         {
             get
