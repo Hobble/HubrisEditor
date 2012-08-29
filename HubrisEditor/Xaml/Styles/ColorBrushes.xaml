@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--Teals-->
+    <SolidColorBrush x:Key="TealBright" Color="#FF36BBCE"/>
+    <SolidColorBrush x:Key="TealPale" Color="#FF5FC0CE"/>
+    <SolidColorBrush x:Key="TealNormal" Color="#FF03899C"/>
+    <SolidColorBrush x:Key="TealStone" Color="#FF1F6A75"/>
+    <SolidColorBrush x:Key="TealDark" Color="#FF015965"/>
+    <!--Blues-->
+    <SolidColorBrush x:Key="BlueStone" Color="#FF2B4181"/>
+    <SolidColorBrush x:Key="BlueDark" Color="#FF062170"/>
+    <SolidColorBrush x:Key="BlueNormal" Color="#FF133AAC"/>
+    <SolidColorBrush x:Key="BlueBright" Color="#FF476BD5"/>
+    <SolidColorBrush x:Key="BluePale" Color="#FF6D87D5"/>
+    <!--Greens-->
+    <SolidColorBrush x:Key="GreenStone" Color="#FF259238"/>
+    <SolidColorBrush x:Key="GreenDark" Color="#FF007F16"/>
+    <SolidColorBrush x:Key="GreenNormal" Color="#FF00C322"/>
+    <SolidColorBrush x:Key="GreenBright" Color="#FF38E156"/>
+    <SolidColorBrush x:Key="GreenPale" Color="#FF65E17B"/>
+    <!--Oranges-->
+    <SolidColorBrush x:Key="OrangeStone" Color="#FFBF7530"/>
+    <SolidColorBrush x:Key="OrangeDark" Color="#FFA64F00"/>
+    <SolidColorBrush x:Key="OrangeNormal" Color="#FFFF7A00"/>
+    <SolidColorBrush x:Key="OrangeBright" Color="#FFFF9C40"/>
+    <SolidColorBrush x:Key="OrangePale" Color="#FFFFB673"/>
+    <!--Reds-->
+    <SolidColorBrush x:Key="RedBright" Color="#FFFF4040"/>
+    <SolidColorBrush x:Key="RedPale" Color="#FFFF7373"/>
+    <SolidColorBrush x:Key="RedNormal" Color="#FFFF0000"/>
+    <SolidColorBrush x:Key="RedStone" Color="#FFBF3030"/>
+    <SolidColorBrush x:Key="RedDark" Color="#FFA60000"/>
+</ResourceDictionary>
