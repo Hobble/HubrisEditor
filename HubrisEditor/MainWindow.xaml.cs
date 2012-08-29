@@ -1,4 +1,5 @@
-﻿using HubrisEditor.ProjectIO;
+﻿using HubrisEditor.GameData;
+using HubrisEditor.ProjectIO;
 using HubrisEditor.Xaml.Windows;
 using Microsoft.Win32;
 using System;
@@ -123,6 +124,17 @@ namespace HubrisEditor
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void AddScenarioMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            NewScenarioDialog dialog = new NewScenarioDialog();
+            dialog.ShowDialog();
+            bool result = (bool)dialog.DialogResult;
+            if (result)
+            {
+                m_projectManager.CurrentCampaign.Scenarios.Add(new Scenario() { Name = dialog.NameTextBox.Text });
+            }
         }
 
         private ProjectManager m_projectManager;

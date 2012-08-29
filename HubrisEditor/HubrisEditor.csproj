@@ -57,6 +57,9 @@
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml\Windows\NewScenarioDialog.xaml.cs">
+      <DependentUpon>NewScenarioDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="Xaml\Styles\ColorBrushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,6 +84,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Xaml\Windows\NewProjectDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\Windows\NewScenarioDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
