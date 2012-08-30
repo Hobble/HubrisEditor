@@ -37,6 +37,7 @@ namespace HubrisEditor.GameData
 
         public void PostDeserialize()
         {
+            Registry.PostDeserialize();
             foreach (var scenario in Scenarios)
             {
                 scenario.PostDeserialize();
@@ -71,7 +72,22 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlElement()]
+        public AttributeRegistry Registry
+        {
+            get
+            {
+                return m_registry;
+            }
+            set
+            {
+                m_registry = value;
+                NotifyPropertyChanged("Registry");
+            }
+        }
+
         #region Members
+        private AttributeRegistry m_registry;
         private ObservableCollection<Scenario> m_scenarios;
         private string m_name;
         #endregion

@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace HubrisEditor.GameData
 {
+    [XmlType("Registry")]
     public class AttributeRegistry : EditorComponentBase, IPostDeserializable
     {
         [XmlArray("TileTypeAttributes")]
@@ -55,6 +56,20 @@ namespace HubrisEditor.GameData
 
         public void PostDeserialize()
         {
+            foreach (var attribute in TileTypeAttributes)
+            {
+                attribute.PostDeserialize();
+            }
+
+            foreach (var attribute in ScenarioAttributes)
+            {
+                attribute.PostDeserialize();
+            }
+
+            foreach (var attribute in CampaignAttributes)
+            {
+                attribute.PostDeserialize();
+            }
         }
 
         private ObservableCollection<AttributeBase> m_tileTypeAttributes;
