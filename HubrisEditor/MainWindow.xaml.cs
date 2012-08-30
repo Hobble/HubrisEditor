@@ -128,15 +128,14 @@ namespace HubrisEditor
 
         private void AddScenarioMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            NewScenarioDialog dialog = new NewScenarioDialog();
-            dialog.ShowDialog();
-            bool result = (bool)dialog.DialogResult;
-            if (result)
+            if (m_random == null)
             {
-                m_projectManager.CurrentCampaign.Scenarios.Add(new Scenario() { Name = dialog.NameTextBox.Text });
+                m_random = new Random();
             }
+            m_projectManager.CurrentCampaign.Scenarios.Add(new Scenario() { Name = "New Scenario " + m_random.Next(1000).ToString() });
         }
 
+        private Random m_random;
         private ProjectManager m_projectManager;
     }
 }

@@ -46,8 +46,23 @@ namespace HubrisEditor.Xaml.Controls
             displayBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             BindingOperations.SetBinding(m_displayField, TextBlock.TextProperty, displayBinding);
 
-            PreviewMouseDown += ValueEditor_PreviewMouseDown;
+            PreviewMouseDoubleClick += ValueEditor_PreviewMouseDoubleClick;
             PreviewKeyDown += ValueEditor_PreviewKeyDown;
+        }
+
+        void ValueEditor_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!m_editMode)
+            {
+                m_editMode = true;
+                e.Handled = true;
+                m_editorField.Visibility = System.Windows.Visibility.Visible;
+                m_displayField.Visibility = System.Windows.Visibility.Collapsed;
+                m_editorField.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    m_editorField.RaiseEvent(new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, e.ChangedButton, e.StylusDevice) { RoutedEvent = TextBox.MouseDownEvent });
+                }), System.Windows.Threading.DispatcherPriority.Background, null);
+            }
         }
 
         private void ValueEditor_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -61,21 +76,6 @@ namespace HubrisEditor.Xaml.Controls
                     m_editorField.Visibility = System.Windows.Visibility.Collapsed;
                     m_displayField.Visibility = System.Windows.Visibility.Visible;
                 }
-            }
-        }
-
-        private void ValueEditor_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (!m_editMode)
-            {
-                m_editMode = true;
-                e.Handled = true;
-                m_editorField.Visibility = System.Windows.Visibility.Visible;
-                m_displayField.Visibility = System.Windows.Visibility.Collapsed;
-                m_editorField.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        m_editorField.RaiseEvent(new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, e.ChangedButton, e.StylusDevice) { RoutedEvent = TextBox.MouseDownEvent });
-                    }), System.Windows.Threading.DispatcherPriority.Background, null);
             }
         }
 

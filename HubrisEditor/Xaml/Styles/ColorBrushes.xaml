@@ -30,6 +30,13 @@
     <SolidColorBrush x:Key="RedNormal" Color="#FFFF0000"/>
     <SolidColorBrush x:Key="RedStone" Color="#FFBF3030"/>
     <SolidColorBrush x:Key="RedDark" Color="#FFA60000"/>
+    <!--Scenarios List Box Colors-->
+    <SolidColorBrush x:Key="ScenariosListBoxFirstIndexBackground" Color="White"/>
+    <SolidColorBrush x:Key="ScenariosListBoxFirstIndexForeground" Color="Black"/>
+    <SolidColorBrush x:Key="ScenariosListBoxSecondIndexBackground" Color="#FFF3F3F3"/>
+    <SolidColorBrush x:Key="ScenariosListBoxSecondIndexForeground" Color="Black"/>
+    <SolidColorBrush x:Key="ScenariosListBoxSelectedBackground" Color="#FFCCDFFF"/>
+    <SolidColorBrush x:Key="ScenariosListBoxSelectedForeground" Color="Black"/>
     <!--Visual Brushes-->
     <VisualBrush x:Key="TealCheckers">
         <VisualBrush.Visual>

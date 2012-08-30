@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace HubrisEditor.GameData
 {
     [XmlType("Scenario")]
-    public class Scenario : GameComponentRoot
+    public class Scenario : EditorComponentRoot
     {
         [XmlAttribute("Name")]
         public string Name

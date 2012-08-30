@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace HubrisEditor.ProjectIO
 {
-    public class ProjectManager : GameComponentRoot
+    public class ProjectManager : EditorComponentRoot
     {
         public Campaign CurrentCampaign
         {

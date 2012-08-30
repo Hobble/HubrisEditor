@@ -12,7 +12,7 @@
                 <ControlTemplate TargetType="{x:Type controls:ValueEditor}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <TextBox x:Name="PART_EditorField" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" FocusVisualStyle="{x:Null}"/>
+                            <TextBox x:Name="PART_EditorField" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" FocusVisualStyle="{x:Null}" MinWidth="120"/>
                             <TextBlock x:Name="PART_DisplayField" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" FocusVisualStyle="{x:Null}"/>
                         </Grid>
                     </Border>

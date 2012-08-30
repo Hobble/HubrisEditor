@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 namespace HubrisEditor.GameData
 {
     [XmlRoot("Campaign")]
-    public class Campaign : GameComponentRoot
+    public class Campaign : EditorComponentRoot
     {
         public Campaign()
         {
