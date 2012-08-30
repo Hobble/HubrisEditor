@@ -1,6 +1,7 @@
 ﻿<Window x:Class="HubrisEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:HubrisEditor.Xaml.Controls"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <ResourceDictionary>
@@ -9,7 +10,7 @@
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate x:Key="ScenariosListBoxItemTemplate">
                 <StackPanel Height="30" Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Margin="7, 0, 0, 0" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <controls:ValueEditor VerticalAlignment="Center" Margin="7, 0, 0, 0" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 </StackPanel>
             </DataTemplate>
             <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
