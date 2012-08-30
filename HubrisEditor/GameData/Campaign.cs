@@ -37,7 +37,6 @@ namespace HubrisEditor.GameData
 
         public void PostDeserialize()
         {
-            Registry.PostDeserialize();
             foreach (var scenario in Scenarios)
             {
                 scenario.PostDeserialize();
@@ -58,6 +57,20 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlArray("TileTypes")]
+        public ObservableCollection<TileType> TileTypes
+        {
+            get
+            {
+                return m_tileTypes;
+            }
+            set
+            {
+                m_tileTypes = value;
+                NotifyPropertyChanged("TileTypes");
+            }
+        }
+
         [XmlAttribute("Name")]
         public string Name
         {
@@ -72,23 +85,9 @@ namespace HubrisEditor.GameData
             }
         }
 
-        [XmlElement()]
-        public AttributeRegistry Registry
-        {
-            get
-            {
-                return m_registry;
-            }
-            set
-            {
-                m_registry = value;
-                NotifyPropertyChanged("Registry");
-            }
-        }
-
         #region Members
-        private AttributeRegistry m_registry;
         private ObservableCollection<Scenario> m_scenarios;
+        private ObservableCollection<TileType> m_tileTypes;
         private string m_name;
         #endregion
     }

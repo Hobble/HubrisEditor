@@ -55,8 +55,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Interfaces.cs" />
-    <Compile Include="GameData\AttributeBase.cs" />
-    <Compile Include="GameData\AttributeRegistry.cs" />
     <Compile Include="GameData\TileType.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">

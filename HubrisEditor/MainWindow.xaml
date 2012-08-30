@@ -75,7 +75,7 @@
                             <ListBox x:Name="ScenariosListBox" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" Grid.Row="0"/>
                             <TabControl Grid.Row="1" Style="{StaticResource ResourceKey=CommonTabControlStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonTabItemStyle}">
                                 <TabItem Header="Attributes"/>
-                                <TabItem Header="Registry"/>
+                                <TabItem Header="Tile Slot"/>
                             </TabControl>
                         </Grid>
                     </TabItem>
