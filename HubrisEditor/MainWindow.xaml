@@ -74,8 +74,8 @@
                                         <Condition Property="IsSelected" Value="true"/>
                                         <Condition Property="Selector.IsSelectionActive" Value="false"/>
                                     </MultiTrigger.Conditions>
-                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ResourceKey=GreenPale}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=GreenStone}"/>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ResourceKey=ScenariosListBoxSelectedNoFocusBackground}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=ScenariosListBoxSelectedNoFocusForeground}"/>
                                 </MultiTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
                                     <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
@@ -132,10 +132,12 @@
                     </Style>
                 </Grid.Style>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="300" MinWidth="200" MaxWidth="400"/>
+                    <ColumnDefinition Width="1"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <ListBox x:Name="ScenariosListBox" Grid.Column="0" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2" Style="{StaticResource ResourceKey=ScenariosListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=ScenariosListBoxItemStyle}"/>
+                <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="1" Grid.Column="1" Background="Black"/>
             </Grid>
         </Grid>
     </Grid>
