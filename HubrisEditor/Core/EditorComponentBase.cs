@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HubrisEditor.Core
 {
-    public class EditorComponentRoot : INotifyPropertyChanged, INotifyPropertyChanging
+    public class EditorComponentBase : INotifyPropertyChanged, INotifyPropertyChanging
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

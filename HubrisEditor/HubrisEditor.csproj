@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Interfaces.cs" />
+    <Compile Include="GameData\AttributeBase.cs" />
+    <Compile Include="GameData\AttributeRegistry.cs" />
+    <Compile Include="GameData\TileType.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
@@ -79,7 +83,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameData\Campaign.cs" />
-    <Compile Include="Core\EditorComponentRoot.cs" />
+    <Compile Include="Core\EditorComponentBase.cs" />
     <Compile Include="GameData\Scenario.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

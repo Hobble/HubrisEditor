@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace HubrisEditor.GameData
 {
     [XmlType("Scenario")]
-    public class Scenario : EditorComponentRoot
+    public class Scenario : EditorComponentBase, IPostDeserializable
     {
         [XmlAttribute("Name")]
         public string Name
@@ -23,6 +23,10 @@ namespace HubrisEditor.GameData
                 m_name = value;
                 NotifyPropertyChanged("Name");
             }
+        }
+
+        public void PostDeserialize()
+        {
         }
 
         #region Members

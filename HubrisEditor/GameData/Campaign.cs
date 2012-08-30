@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 namespace HubrisEditor.GameData
 {
     [XmlRoot("Campaign")]
-    public class Campaign : EditorComponentRoot
+    public class Campaign : EditorComponentBase, IPostDeserializable
     {
         public Campaign()
         {
@@ -33,6 +33,14 @@ namespace HubrisEditor.GameData
         private void InitializeMembers()
         {
             m_scenarios = new ObservableCollection<Scenario>();
+        }
+
+        public void PostDeserialize()
+        {
+            foreach (var scenario in Scenarios)
+            {
+                scenario.PostDeserialize();
+            }
         }
 
         [XmlArray("Scenarios")]
