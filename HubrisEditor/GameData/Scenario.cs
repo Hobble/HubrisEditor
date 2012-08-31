@@ -1,6 +1,8 @@
 ﻿using HubrisEditor.Core;
+using HubrisEditor.ProjectIO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,16 @@ namespace HubrisEditor.GameData
     [XmlType("Scenario")]
     public class Scenario : EditorComponentBase, IPostDeserializable
     {
+        public Scenario()
+        {
+            InitializeMembers();
+        }
+
+        private void InitializeMembers()
+        {
+            m_tileSlots = new ObservableCollection<TileSlot>();
+        }
+
         [XmlAttribute("Name")]
         public string Name
         {
@@ -109,11 +121,54 @@ namespace HubrisEditor.GameData
             }
         }
 
-        public void PostDeserialize()
+        [XmlIgnore()]
+        public double TileSlotGridHeight
         {
+            get
+            {
+                return m_canvasSpaceHeight * 55.0;
+            }
+        }
+
+        [XmlIgnore()]
+        public double TileSlotGridWidth
+        {
+            get
+            {
+                return m_canvasSpaceWidth * 55.0;
+            }
+        }
+
+        [XmlArray("TileSlots")]
+        public ObservableCollection<TileSlot> TileSlots
+        {
+            get
+            {
+                return m_tileSlots;
+            }
+            set
+            {
+                m_tileSlots = value;
+                NotifyPropertyChanged("TileSlots");
+            }
+        }
+
+        public void PostDeserialize(ProjectManager sender)
+        {
+            m_manager = sender;
+            if (TileSlots == null)
+            {
+                TileSlots = new ObservableCollection<TileSlot>();
+            }
+            foreach (var tileSlot in TileSlots)
+            {
+                tileSlot.PostDeserialize(sender);
+            }
         }
 
         #region Members
+        private ProjectManager m_manager;
+        private ObservableCollection<TileSlot> m_tileSlots;
         private string m_name;
         private int m_canvasSpaceWidth;
         private int m_canvasSpaceHeight;

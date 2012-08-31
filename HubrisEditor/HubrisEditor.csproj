@@ -62,6 +62,7 @@
     <Compile Include="EffectLibrary\HueField.cs" />
     <Compile Include="EffectLibrary\RedRange.cs" />
     <Compile Include="EffectLibrary\SVField.cs" />
+    <Compile Include="GameData\TileSlot.cs" />
     <Compile Include="GameData\TileType.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />
     <Compile Include="Xaml\UserControls\HSVColorSwatch.xaml.cs">

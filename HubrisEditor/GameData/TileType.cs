@@ -1,4 +1,5 @@
 ﻿using HubrisEditor.Core;
+using HubrisEditor.ProjectIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -176,10 +177,12 @@ namespace HubrisEditor.GameData
             }
         }
 
-        public void PostDeserialize()
+        public void PostDeserialize(ProjectManager sender)
         {
+            m_manager = sender;
         }
 
+        private ProjectManager m_manager;
         private Color m_tileColor;
         private string m_name;
         private double m_avoidance;

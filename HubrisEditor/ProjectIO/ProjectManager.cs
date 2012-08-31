@@ -54,7 +54,7 @@ namespace HubrisEditor.ProjectIO
         public void NewProject(string name, string scenario)
         {
             CurrentCampaign = new Campaign(name, scenario);
-            CurrentCampaign.PostDeserialize();
+            CurrentCampaign.PostDeserialize(this);
             IsProjectLoaded = true;
         }
 
@@ -63,7 +63,7 @@ namespace HubrisEditor.ProjectIO
             FileStream fs = new FileStream(path, FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(Campaign));
             CurrentCampaign = serializer.Deserialize(fs) as Campaign;
-            CurrentCampaign.PostDeserialize();
+            CurrentCampaign.PostDeserialize(this);
             m_currentPath = path;
             IsProjectLoaded = true;
             fs.Close();

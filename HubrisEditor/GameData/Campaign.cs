@@ -1,4 +1,5 @@
 ﻿using HubrisEditor.Core;
+using HubrisEditor.ProjectIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,15 +37,16 @@ namespace HubrisEditor.GameData
             m_tileTypes = new ObservableCollection<TileType>();
         }
 
-        public void PostDeserialize()
+        public void PostDeserialize(ProjectManager sender)
         {
+            m_manager = sender;
             if (Scenarios == null)
             {
                 Scenarios = new ObservableCollection<Scenario>();
             }
             foreach (var scenario in Scenarios)
             {
-                scenario.PostDeserialize();
+                scenario.PostDeserialize(sender);
             }
             if (TileTypes == null)
             {
@@ -52,7 +54,7 @@ namespace HubrisEditor.GameData
             }
             foreach (var tileType in TileTypes)
             {
-                tileType.PostDeserialize();
+                tileType.PostDeserialize(sender);
             }
         }
 
@@ -102,6 +104,7 @@ namespace HubrisEditor.GameData
         private ObservableCollection<Scenario> m_scenarios;
         private ObservableCollection<TileType> m_tileTypes;
         private string m_name;
+        private ProjectManager m_manager;
         #endregion
     }
 }

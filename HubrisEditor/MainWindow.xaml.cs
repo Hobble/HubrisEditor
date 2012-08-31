@@ -132,7 +132,9 @@ namespace HubrisEditor
             {
                 m_random = new Random();
             }
-            m_projectManager.CurrentCampaign.Scenarios.Add(new Scenario() { Name = "New Scenario " + m_random.Next(100000).ToString() });
+            Scenario scenario = new Scenario() { Name = "New Scenario " + m_random.Next(100000).ToString() };
+            scenario.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.Scenarios.Add(scenario);
         }
 
         private void AddTileTypeMenuItem_Click(object sender, RoutedEventArgs e)
@@ -141,7 +143,9 @@ namespace HubrisEditor
             {
                 m_random = new Random();
             }
-            m_projectManager.CurrentCampaign.TileTypes.Add(new TileType() { Name = "New Tile Type " + m_random.Next(100000).ToString() });
+            TileType type = new TileType() { Name = "New Tile Type " + m_random.Next(100000).ToString() };
+            type.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.TileTypes.Add(type);
         }
 
         private void TileTypeColorButton_Click(object sender, RoutedEventArgs e)

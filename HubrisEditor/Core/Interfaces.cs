@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HubrisEditor.ProjectIO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace HubrisEditor.Core
 {
     public interface IPostDeserializable
     {
-        void PostDeserialize();
+        void PostDeserialize(ProjectManager sender);
     }
 }
