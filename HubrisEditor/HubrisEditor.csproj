@@ -37,6 +37,8 @@
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,8 +57,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Interfaces.cs" />
+    <Compile Include="EffectLibrary\BlueRange.cs" />
+    <Compile Include="EffectLibrary\GreenRange.cs" />
+    <Compile Include="EffectLibrary\HueField.cs" />
+    <Compile Include="EffectLibrary\RedRange.cs" />
+    <Compile Include="EffectLibrary\SVField.cs" />
     <Compile Include="GameData\TileType.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />
+    <Compile Include="Xaml\UserControls\HSVColorSwatch.xaml.cs">
+      <DependentUpon>HSVColorSwatch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -91,6 +101,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Xaml\UserControls\HSVColorSwatch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Xaml\Windows\NewProjectDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,10 +134,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\BlueRange.ps" />
+    <Resource Include="Resources\GreenRange.ps" />
+    <Resource Include="Resources\HueField.ps" />
+    <Resource Include="Resources\RedRange.ps" />
+    <Resource Include="Resources\SVField.ps" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
