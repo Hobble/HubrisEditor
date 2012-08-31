@@ -66,6 +66,7 @@ namespace HubrisEditor.ProjectIO
             CurrentCampaign.PostDeserialize();
             m_currentPath = path;
             IsProjectLoaded = true;
+            fs.Close();
 
         }
 
@@ -74,6 +75,7 @@ namespace HubrisEditor.ProjectIO
             XmlSerializer serializer = new XmlSerializer(typeof(Campaign));
             TextWriter writer = new StreamWriter(m_currentPath);
             serializer.Serialize(writer, m_currentCampaign);
+            writer.Close();
         }
 
         public void SaveProjectAs(string path)
@@ -82,6 +84,7 @@ namespace HubrisEditor.ProjectIO
             TextWriter writer = new StreamWriter(path);
             serializer.Serialize(writer, m_currentCampaign);
             m_currentPath = path;
+            writer.Close();
         }
 
         private Campaign m_currentCampaign;

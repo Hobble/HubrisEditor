@@ -109,6 +109,42 @@
                                     <Button x:Name="TileTypeColorButton" Click="TileTypeColorButton_Click" VerticalAlignment="Center" Margin="5, 0, 0, 0">Select Color</Button>
                                     <Rectangle Margin="5, 0, 0, 0" Fill="{Binding Path=ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Avoidance</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=Avoidance, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Defense</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=Defense, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Resistance</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=Resistance, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Health Regen</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=HealthRegen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Mana Regen</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=ManaRegen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Energy Regen</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=EnergyRegen, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Travel Cost</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=TravelCost, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Hides Vision</TextBlock>
+                                    <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=HidesVision, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Blocks Passage</TextBlock>
+                                    <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=BlocksPassage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                     </TabItem>

@@ -134,6 +134,48 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("TravelCost")]
+        public double TravelCost
+        {
+            get
+            {
+                return m_travelCost;
+            }
+            set
+            {
+                m_travelCost = value;
+                NotifyPropertyChanged("TravelCost");
+            }
+        }
+
+        [XmlAttribute("HidesVision")]
+        public bool HidesVision
+        {
+            get
+            {
+                return m_hidesVision;
+            }
+            set
+            {
+                m_hidesVision = value;
+                NotifyPropertyChanged("HidesVision");
+            }
+        }
+
+        [XmlAttribute("BlocksPassage")]
+        public bool BlocksPassage
+        {
+            get
+            {
+                return m_blocksPassage;
+            }
+            set
+            {
+                m_blocksPassage = value;
+                NotifyPropertyChanged("BlocksPassage");
+            }
+        }
+
         public void PostDeserialize()
         {
         }
@@ -146,5 +188,8 @@ namespace HubrisEditor.GameData
         private double m_healthRegen;
         private double m_manaRegen;
         private double m_energyRegen;
+        private double m_travelCost;
+        private bool m_hidesVision;
+        private bool m_blocksPassage;
     }
 }
