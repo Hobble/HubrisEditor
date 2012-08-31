@@ -188,7 +188,7 @@ namespace HubrisEditor.GameData
         private double m_healthRegen;
         private double m_manaRegen;
         private double m_energyRegen;
-        private double m_travelCost;
+        private double m_travelCost = 1.0;
         private bool m_hidesVision;
         private bool m_blocksPassage;
     }
