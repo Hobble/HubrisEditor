@@ -33,13 +33,26 @@ namespace HubrisEditor.GameData
         private void InitializeMembers()
         {
             m_scenarios = new ObservableCollection<Scenario>();
+            m_tileTypes = new ObservableCollection<TileType>();
         }
 
         public void PostDeserialize()
         {
+            if (Scenarios == null)
+            {
+                Scenarios = new ObservableCollection<Scenario>();
+            }
             foreach (var scenario in Scenarios)
             {
                 scenario.PostDeserialize();
+            }
+            if (TileTypes == null)
+            {
+                TileTypes = new ObservableCollection<TileType>();
+            }
+            foreach (var tileType in TileTypes)
+            {
+                tileType.PostDeserialize();
             }
         }
 

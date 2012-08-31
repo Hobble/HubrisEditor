@@ -14,6 +14,12 @@
                     <controls:ValueEditor VerticalAlignment="Center" Margin="7, 0, 0, 0" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="TileTypeListBoxItemTemplate">
+                <StackPanel Height="30" Orientation="Horizontal">
+                    <Rectangle Height="16" Width="16" VerticalAlignment="Center" Margin="7, 0, 0, 0" Fill="{Binding Path=ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <controls:ValueEditor VerticalAlignment="Center" Margin="5, 0, 0, 0" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <Window.CommandBindings>
@@ -44,6 +50,7 @@
             <MenuItem Header="View"/>
             <MenuItem Header="Project">
                 <MenuItem Header="Add Scenario" Click="AddScenarioMenuItem_Click"/>
+                <MenuItem Header="Add Tile Type" Click="AddTileTypeMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Tools"/>
             <MenuItem Header="Window"/>
@@ -81,7 +88,29 @@
                         </Grid>
                     </TabItem>
                     <TabItem Header="Tile Types">
-                        <Button Click="Button_Click">Click Me</Button>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <ListBox x:Name="TileTypesListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileTypes, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=TileTypesListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=TileTypesListBox, Path=SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="-1">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center">Tile Color</TextBlock>
+                                    <Button x:Name="TileTypeColorButton" Click="TileTypeColorButton_Click" VerticalAlignment="Center" Margin="5, 0, 0, 0">Select Color</Button>
+                                    <Rectangle Margin="5, 0, 0, 0" Fill="{Binding Path=ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
                     </TabItem>
                 </TabControl>
                 <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="1" Grid.Column="1" Background="Black"/>

@@ -136,7 +136,6 @@ namespace HubrisEditor.GameData
 
         public void PostDeserialize()
         {
-            throw new NotImplementedException();
         }
 
         private Color m_tileColor;

@@ -132,16 +132,35 @@ namespace HubrisEditor
             {
                 m_random = new Random();
             }
-            m_projectManager.CurrentCampaign.Scenarios.Add(new Scenario() { Name = "New Scenario " + m_random.Next(1000).ToString() });
+            m_projectManager.CurrentCampaign.Scenarios.Add(new Scenario() { Name = "New Scenario " + m_random.Next(100000).ToString() });
+        }
+
+        private void AddTileTypeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            m_projectManager.CurrentCampaign.TileTypes.Add(new TileType() { Name = "New Tile Type " + m_random.Next(100000).ToString() });
+        }
+
+        private void TileTypeColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorSwatch swatch = new ColorSwatch();
+            swatch.Owner = this;
+            swatch.Closing += Swatch_Closing;
+            swatch.DataContext = (sender as Button).DataContext;
+            swatch.Show();
+        }
+
+        private void Swatch_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ColorSwatch swatch = sender as ColorSwatch;
+            TileType context = swatch.DataContext as TileType;
+            context.TileColor = new Color() { R = swatch.HSVColorSwatch.Red, G = swatch.HSVColorSwatch.Green, B = swatch.HSVColorSwatch.Blue, A = swatch.HSVColorSwatch.Alpha };
         }
 
         private Random m_random;
         private ProjectManager m_projectManager;
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ColorSwatch cs = new ColorSwatch();
-            cs.Show();
-        }
     }
 }
