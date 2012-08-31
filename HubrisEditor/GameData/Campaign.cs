@@ -40,14 +40,6 @@ namespace HubrisEditor.GameData
         public void PostDeserialize(ProjectManager sender)
         {
             m_manager = sender;
-            if (Scenarios == null)
-            {
-                Scenarios = new ObservableCollection<Scenario>();
-            }
-            foreach (var scenario in Scenarios)
-            {
-                scenario.PostDeserialize(sender);
-            }
             if (TileTypes == null)
             {
                 TileTypes = new ObservableCollection<TileType>();
@@ -55,6 +47,14 @@ namespace HubrisEditor.GameData
             foreach (var tileType in TileTypes)
             {
                 tileType.PostDeserialize(sender);
+            }
+            if (Scenarios == null)
+            {
+                Scenarios = new ObservableCollection<Scenario>();
+            }
+            foreach (var scenario in Scenarios)
+            {
+                scenario.PostDeserialize(sender);
             }
         }
 

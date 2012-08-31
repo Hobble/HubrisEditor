@@ -12,6 +12,19 @@ namespace HubrisEditor.ProjectIO
 {
     public class ProjectManager : EditorComponentBase
     {
+        public TileType DefaultTile
+        {
+            get
+            {
+                return m_defaultTile;
+            }
+            set
+            {
+                m_defaultTile = value;
+                NotifyPropertyChanged("DefaultTile");
+            }
+        }
+
         public Campaign CurrentCampaign
         {
             get
@@ -90,5 +103,6 @@ namespace HubrisEditor.ProjectIO
         private Campaign m_currentCampaign;
         private string m_currentPath;
         private bool m_isProjectLoaded;
+        private TileType m_defaultTile;
     }
 }

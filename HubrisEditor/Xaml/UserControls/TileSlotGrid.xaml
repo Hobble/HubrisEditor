@@ -7,9 +7,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Xaml/Styles/CommonStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="TileSlotListBoxStyle" TargetType="{x:Type ListBox}">
                 <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
@@ -40,14 +37,11 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
             </Style>
+            <SolidColorBrush x:Key="TilesListBoxSelectedBackground" Color="#FFB6CEF5"/>
+            <SolidColorBrush x:Key="TilesListBoxSelectedForeground" Color="Black"/>
+            <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusBackground" Color="#FFB6F5CE"/>
+            <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusForeground" Color="Black"/>
             <Style x:Key="TileSlotListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -56,21 +50,21 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                            <Border x:Name="Bd" BorderBrush="Transparent" BorderThickness="2.5" Background="White" Padding="0" SnapsToDevicePixels="true">
+                            <Border x:Name="Bd" BorderThickness="7.5" Padding="0" SnapsToDevicePixels="true" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsSelected" Value="true">
-                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ResourceKey=ScenariosListBoxSelectedBackground}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=ScenariosListBoxSelectedForeground}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ResourceKey=TilesListBoxSelectedBackground}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=TilesListBoxSelectedForeground}"/>
                                 </Trigger>
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsSelected" Value="true"/>
                                         <Condition Property="Selector.IsSelectionActive" Value="false"/>
                                     </MultiTrigger.Conditions>
-                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource ResourceKey=ScenariosListBoxSelectedNoFocusBackground}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=ScenariosListBoxSelectedNoFocusForeground}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ResourceKey=TilesListBoxSelectedNoFocusBackground}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=TilesListBoxSelectedNoFocusForeground}"/>
                                 </MultiTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
                                     <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
@@ -80,9 +74,20 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <DataTemplate x:Key="TileSlotTemplate">
+                <StackPanel Background="Transparent" IsHitTestVisible="True">
+                    <Rectangle Height="50" Width="50" Fill="{Binding Path=Tile.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ListBox/>
+        <ListBox ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>

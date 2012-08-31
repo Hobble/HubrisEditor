@@ -126,7 +126,7 @@ namespace HubrisEditor.GameData
         {
             get
             {
-                return m_canvasSpaceHeight * 55.0;
+                return m_canvasSpaceHeight * 65.0;
             }
         }
 
@@ -135,7 +135,7 @@ namespace HubrisEditor.GameData
         {
             get
             {
-                return m_canvasSpaceWidth * 55.0;
+                return m_canvasSpaceWidth * 65.0;
             }
         }
 
@@ -164,6 +164,36 @@ namespace HubrisEditor.GameData
             {
                 tileSlot.PostDeserialize(sender);
             }
+            NotifyPropertyChanged("TileSlotGridHeight");
+            NotifyPropertyChanged("TileSlotGridWidth");
+        }
+
+        public void GenerateTiles()
+        {
+            NotifyPropertyChanged("TileSlotGridHeight");
+            NotifyPropertyChanged("TileSlotGridWidth");
+            m_tileSlots.Clear();
+            TileType defaultTile = m_manager.DefaultTile;
+            if (defaultTile == null)
+            {
+                defaultTile = m_manager.CurrentCampaign.TileTypes.FirstOrDefault<TileType>();
+                if (defaultTile == null)
+                {
+                    return;
+                }
+            }
+            int total = m_canvasSpaceHeight * m_canvasSpaceWidth;
+            for (int i = 0; i < total; i++)
+            {
+                TileSlot slot = new TileSlot();
+                slot.PostDeserialize(m_manager);
+                slot.TileTypeKey = defaultTile.Name;
+                m_tileSlots.Add(slot);
+            }
+        }
+
+        public void UpdateOffsets()
+        {
         }
 
         #region Members

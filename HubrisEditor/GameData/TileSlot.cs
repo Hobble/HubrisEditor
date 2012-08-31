@@ -51,15 +51,38 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("IsInGameSpace")]
+        public bool IsInGameSpace
+        {
+            get
+            {
+                return m_isInGameSpace;
+            }
+            set
+            {
+                m_isInGameSpace = value;
+                NotifyPropertyChanged("IsInGameSpace");
+            }
+        }
+
         public void PostDeserialize(ProjectManager sender)
         {
             m_manager = sender;
             m_initialized = true;
+            foreach (var tileType in m_manager.CurrentCampaign.TileTypes)
+            {
+                if (tileType.Name.Equals(m_tileTypeKey))
+                {
+                    Tile = tileType;
+                    break;
+                }
+            }
         }
 
         private ProjectManager m_manager;
         private bool m_initialized;
         private string m_tileTypeKey;
         private TileType m_tile;
+        private bool m_isInGameSpace;
     }
 }

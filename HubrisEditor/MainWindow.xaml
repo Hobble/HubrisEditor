@@ -81,10 +81,45 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <ListBox x:Name="ScenariosListBox" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" Grid.Row="0"/>
-                            <TabControl Grid.Row="1" Style="{StaticResource ResourceKey=CommonTabControlStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonTabItemStyle}">
-                                <TabItem Header="Attributes"/>
-                                <TabItem Header="Tile Slot"/>
-                            </TabControl>
+                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=ScenariosListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=ScenariosListBox, Path=SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="-1">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center">Canvas Space Width</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=CanvasSpaceWidth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Canvas Space Height</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=CanvasSpaceHeight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Game Space Width</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceWidth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Game Space Height</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceHeight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Game Space Offset X</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceOffsetX, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <TextBlock VerticalAlignment="Center">Game Space Offset Y</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceOffsetY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                                    <Button VerticalAlignment="Center" Click="GenerateTilesButton_Click">Generate Tiles</Button>
+                                    <Button VerticalAlignment="Center" Margin="5, 0, 0, 0" Click="UpdateOffsetsButton_Click">Update Offsets</Button>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Tile Types">
@@ -93,7 +128,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="TileTypesListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileTypes, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                            <ListBox x:Name="TileTypesListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileTypes, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultTile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                             <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=TileTypesListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 <StackPanel.Style>
                                     <Style TargetType="{x:Type StackPanel}">
@@ -150,6 +185,7 @@
                     </TabItem>
                 </TabControl>
                 <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="1" Grid.Column="1" Background="Black"/>
+                <userControls:TileSlotGrid Grid.Column="2" DataContext="{Binding Path=SelectedItem, ElementName=ScenariosListBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
             </Grid>
         </Grid>
     </Grid>

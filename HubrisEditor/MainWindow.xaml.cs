@@ -164,6 +164,16 @@ namespace HubrisEditor
             context.TileColor = new Color() { R = swatch.HSVColorSwatch.Red, G = swatch.HSVColorSwatch.Green, B = swatch.HSVColorSwatch.Blue, A = swatch.HSVColorSwatch.Alpha };
         }
 
+        private void GenerateTilesButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((sender as Button).DataContext as Scenario).GenerateTiles();
+        }
+
+        private void UpdateOffsetsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((sender as Button).DataContext as Scenario).UpdateOffsets();
+        }
+
         private Random m_random;
         private ProjectManager m_projectManager;
     }
