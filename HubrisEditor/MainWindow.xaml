@@ -81,6 +81,7 @@
                         </Grid>
                     </TabItem>
                     <TabItem Header="Tile Types">
+                        <Button Click="Button_Click">Click Me</Button>
                     </TabItem>
                 </TabControl>
                 <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="1" Grid.Column="1" Background="Black"/>

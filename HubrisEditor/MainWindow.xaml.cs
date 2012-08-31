@@ -137,5 +137,11 @@ namespace HubrisEditor
 
         private Random m_random;
         private ProjectManager m_projectManager;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ColorSwatch cs = new ColorSwatch();
+            cs.Show();
+        }
     }
 }

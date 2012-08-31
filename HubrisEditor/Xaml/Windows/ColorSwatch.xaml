@@ -1,0 +1,25 @@
+﻿<Window x:Class="HubrisEditor.Xaml.Windows.ColorSwatch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:userControls="clr-namespace:HubrisEditor.Xaml.UserControls"
+        Title="ColorSwatch" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Custom Colors">
+                <userControls:HSVColorSwatch x:Name="HSVColorSwatch"/>
+            </TabItem>
+            <TabItem Header="System Colors">
+                <ListBox ItemsSource="{Binding Path=SystemColors, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="230" Width="430" SelectionChanged="ListBox_SelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Height="16" Width="16" Margin="2" Fill="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Key, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
