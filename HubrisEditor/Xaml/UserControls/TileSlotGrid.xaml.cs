@@ -74,6 +74,10 @@ namespace HubrisEditor.Xaml.UserControls
             {
                 slot.TileElevation = 8;
             }
+            else if (e.Key == Key.Delete)
+            {
+                slot.TileContentEnum = 0;
+            }
             else if (e.Key == Key.I)
             {
                 slot.TileContentEnum = 1;
@@ -86,29 +90,37 @@ namespace HubrisEditor.Xaml.UserControls
             {
                 slot.TileContentEnum = 3;
             }
-            else if (e.Key == Key.F)
+            else if (e.Key == Key.B)
             {
                 slot.TileContentEnum = 4;
             }
-            else if (e.Key == Key.D)
+            else if (e.Key == Key.S)
             {
                 slot.TileContentEnum = 5;
             }
-            else if (e.Key == Key.N)
+            else if (e.Key == Key.F)
             {
                 slot.TileContentEnum = 6;
             }
-            else if (e.Key == Key.U)
+            else if (e.Key == Key.D)
             {
                 slot.TileContentEnum = 7;
             }
-            else if (e.Key == Key.H)
+            else if (e.Key == Key.N)
             {
                 slot.TileContentEnum = 8;
             }
-            else if (e.Key == Key.V)
+            else if (e.Key == Key.U)
             {
                 slot.TileContentEnum = 9;
+            }
+            else if (e.Key == Key.H)
+            {
+                slot.TileContentEnum = 10;
+            }
+            else if (e.Key == Key.V)
+            {
+                slot.TileContentEnum = 11;
             }
         }
 

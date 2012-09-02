@@ -85,12 +85,16 @@
             </DataTemplate>
             <DataTemplate x:Key="ElevationTemplate">
                 <StackPanel Background="Transparent" IsHitTestVisible="True">
-                    <Rectangle Height="50" Width="50" Fill="{Binding Path=ElevationBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                    <Border BorderBrush="{Binding Path=ElevationBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True" BorderThickness="15">
+                        <Rectangle Height="20" Width="20" Fill="{Binding Path=Tile.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                    </Border>
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="TileContentTemplate">
                 <StackPanel Background="Transparent" IsHitTestVisible="True">
-                    <Rectangle Height="50" Width="50" Fill="{Binding Path=ContentBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                    <Border BorderBrush="{Binding Path=ContentBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True" BorderThickness="15">
+                        <Rectangle Height="20" Width="20" Fill="{Binding Path=Tile.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                    </Border>
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
@@ -120,7 +124,7 @@
                 </ListBox>
             </TabItem>
             <TabItem Header="Contents">
-                <ListBox x:Name="ContentsListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}">
+                <ListBox x:Name="ContentsListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
@@ -142,6 +146,10 @@
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set Tile Elevation.</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LightGray"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Delete: Clear Tile Content</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                 <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Blue"/>
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">I: Initial Player Spawn</TextBlock>
             </StackPanel>
@@ -152,6 +160,10 @@
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                 <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Red"/>
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">E: Initial Enemy Spawn.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Maroon"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">B: Enemy Boss.</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                 <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="OrangeRed"/>

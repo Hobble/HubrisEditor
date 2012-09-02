@@ -28,10 +28,11 @@ namespace HubrisEditor.GameData
             }
 
             s_placementBrushes = new List<SolidColorBrush>();
-            s_placementBrushes.Add(Brushes.White);
+            s_placementBrushes.Add(Brushes.LightGray);
             s_placementBrushes.Add(Brushes.Blue);
             s_placementBrushes.Add(Brushes.LightBlue);
             s_placementBrushes.Add(Brushes.Red);
+            s_placementBrushes.Add(Brushes.Maroon);
             s_placementBrushes.Add(Brushes.OrangeRed);
             s_placementBrushes.Add(Brushes.Green);
             s_placementBrushes.Add(Brushes.LightGreen);
