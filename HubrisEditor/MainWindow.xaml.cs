@@ -169,11 +169,6 @@ namespace HubrisEditor
             ((sender as Button).DataContext as Scenario).GenerateTiles();
         }
 
-        private void UpdateOffsetsButton_Click(object sender, RoutedEventArgs e)
-        {
-            ((sender as Button).DataContext as Scenario).UpdateOffsets();
-        }
-
         private Random m_random;
         private ProjectManager m_projectManager;
     }

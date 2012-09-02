@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" DataContextChanged="UserControl_DataContextChanged">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="TileSlotListBoxStyle" TargetType="{x:Type ListBox}">
@@ -23,7 +23,7 @@
                         <ControlTemplate TargetType="{x:Type ListBox}">
                             <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="true">
                                 <ScrollViewer Focusable="false" Padding="0">
-                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    <ItemsPresenter x:Name="ItemsPresenter" Tag="{TemplateBinding Name}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Loaded="TilesListBox_Loaded"/>
                                 </ScrollViewer>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -43,6 +43,7 @@
             <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusBackground" Color="#FFB6F5CE"/>
             <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusForeground" Color="Black"/>
             <Style x:Key="TileSlotListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+                <EventSetter Event="PreviewKeyDown" Handler="Item_PreviewKeyDown"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                 <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -54,6 +55,9 @@
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
                             <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsInGameSpace, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="false">
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="Gray"/>
+                                </DataTrigger>
                                 <Trigger Property="IsSelected" Value="true">
                                     <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ResourceKey=TilesListBoxSelectedBackground}"/>
                                     <Setter Property="Foreground" Value="{StaticResource ResourceKey=TilesListBoxSelectedForeground}"/>
@@ -79,15 +83,44 @@
                     <Rectangle Height="50" Width="50" Fill="{Binding Path=Tile.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="ElevationTemplate">
+                <StackPanel Background="Transparent" IsHitTestVisible="True">
+                    <Rectangle Height="50" Width="50" Fill="{Binding Path=ElevationBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ListBox ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="ViewsTabControl">
+            <TabItem Header="Tile Type">
+                <ListBox x:Name="TilesListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Elevation">
+                <ListBox x:Name="ElevationListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Column="1">
+            <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </StackPanel>
     </Grid>
 </UserControl>

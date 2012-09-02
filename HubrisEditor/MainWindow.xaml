@@ -69,8 +69,8 @@
                     </Style>
                 </Grid.Style>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300" MinWidth="200" MaxWidth="400"/>
-                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="200" MinWidth="200" MaxWidth="300"/>
+                    <ColumnDefinition Width="2"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TabControl x:Name="MainTabControl" Grid.Column="0" SelectedIndex="0" Style="{StaticResource ResourceKey=CommonTabControlStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonTabItemStyle}">
@@ -100,24 +100,11 @@
                                     <TextBox VerticalAlignment="Center" Text="{Binding Path=CanvasSpaceHeight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                                    <TextBlock VerticalAlignment="Center">Game Space Width</TextBlock>
-                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceWidth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                                    <TextBlock VerticalAlignment="Center">Game Space Height</TextBlock>
-                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceHeight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                                    <TextBlock VerticalAlignment="Center">Game Space Offset X</TextBlock>
-                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceOffsetX, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                                    <TextBlock VerticalAlignment="Center">Game Space Offset Y</TextBlock>
-                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpaceOffsetY, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
+                                    <TextBlock VerticalAlignment="Center">Game Space Padding</TextBlock>
+                                    <TextBox VerticalAlignment="Center" Text="{Binding Path=GameSpacePadding, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="75" Margin="5, 0, 0, 0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                                     <Button VerticalAlignment="Center" Click="GenerateTilesButton_Click">Generate Tiles</Button>
-                                    <Button VerticalAlignment="Center" Margin="5, 0, 0, 0" Click="UpdateOffsetsButton_Click">Update Offsets</Button>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -184,7 +171,7 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-                <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="1" Grid.Column="1" Background="Black"/>
+                <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="2" Grid.Column="1" Background="Black"/>
                 <userControls:TileSlotGrid Grid.Column="2" DataContext="{Binding Path=SelectedItem, ElementName=ScenariosListBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
             </Grid>
         </Grid>

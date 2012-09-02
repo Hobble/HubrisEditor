@@ -1,10 +1,12 @@
 ﻿using HubrisEditor.Core;
 using HubrisEditor.ProjectIO;
+using HubrisEditor.Xaml.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace HubrisEditor.GameData
@@ -12,6 +14,20 @@ namespace HubrisEditor.GameData
     [XmlType("TileSlot")]
     public class TileSlot : EditorComponentBase, IPostDeserializable
     {
+        static TileSlot()
+        {
+            s_elevationBrushes = new List<SolidColorBrush>();
+            s_maxElevation = 8;
+            s_minElevation = 0;
+
+            byte value = 0;
+            for (int i = 0; i <= s_maxElevation; i++)
+            {
+                s_elevationBrushes.Add(new SolidColorBrush(new Color() { A = 255, R = value, G = value, B = value }));
+                value += 31;
+            }
+        }
+
         [XmlIgnore()]
         public TileType Tile
         {
@@ -51,6 +67,30 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("TileElevation")]
+        public int TileElevation
+        {
+            get
+            {
+                return m_tileElevation;
+            }
+            set
+            {
+                m_tileElevation = Math.Max(Math.Min(value, s_maxElevation), s_minElevation);
+                NotifyPropertyChanged("TileElevation");
+                NotifyPropertyChanged("ElevationBrush");
+            }
+        }
+
+        [XmlIgnore()]
+        public SolidColorBrush ElevationBrush
+        {
+            get
+            {
+                return s_elevationBrushes[m_tileElevation];
+            }
+        }
+
         [XmlAttribute("IsInGameSpace")]
         public bool IsInGameSpace
         {
@@ -79,10 +119,22 @@ namespace HubrisEditor.GameData
             }
         }
 
+        public void SetTileToCurrentlySelected()
+        {
+            if (m_manager.DefaultTile != null)
+            {
+                TileTypeKey = m_manager.DefaultTile.Name;
+            }
+        }
+
         private ProjectManager m_manager;
         private bool m_initialized;
         private string m_tileTypeKey;
         private TileType m_tile;
         private bool m_isInGameSpace;
+        private int m_tileElevation = 4;
+        private static List<SolidColorBrush> s_elevationBrushes;
+        private static int s_maxElevation;
+        private static int s_minElevation;
     }
 }

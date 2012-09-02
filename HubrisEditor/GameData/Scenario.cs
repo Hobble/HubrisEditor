@@ -65,59 +65,17 @@ namespace HubrisEditor.GameData
             }
         }
 
-        [XmlAttribute("GameSpaceWidth")]
-        public int GameSpaceWidth
+        [XmlAttribute("GameSpacePadding")]
+        public int GameSpacePadding
         {
             get
             {
-                return m_gameSpaceWidth;
+                return m_gameSpacePadding;
             }
             set
             {
-                m_gameSpaceWidth = value;
-                NotifyPropertyChanged("GameSpaceWidth");
-            }
-        }
-
-        [XmlAttribute("GameSpaceHeight")]
-        public int GameSpaceHeight
-        {
-            get
-            {
-                return m_gameSpaceHeight;
-            }
-            set
-            {
-                m_gameSpaceHeight = value;
-                NotifyPropertyChanged("GameSpaceHeight");
-            }
-        }
-
-        [XmlAttribute("GameSpaceOffsetX")]
-        public int GameSpaceOffsetX
-        {
-            get
-            {
-                return m_gameSpaceOffsetX;
-            }
-            set
-            {
-                m_gameSpaceOffsetX = value;
-                NotifyPropertyChanged("GameSpaceOffsetX");
-            }
-        }
-
-        [XmlAttribute("GameSpaceOffsetY")]
-        public int GameSpaceOffsetY
-        {
-            get
-            {
-                return m_gameSpaceOffsetY;
-            }
-            set
-            {
-                m_gameSpaceOffsetY = value;
-                NotifyPropertyChanged("GameSpaceOffsetY");
+                m_gameSpacePadding = value;
+                NotifyPropertyChanged("GameSpacePadding");
             }
         }
 
@@ -190,10 +148,26 @@ namespace HubrisEditor.GameData
                 slot.TileTypeKey = defaultTile.Name;
                 m_tileSlots.Add(slot);
             }
+            UpdateOffsets();
         }
 
         public void UpdateOffsets()
         {
+            int i = 0;
+            foreach (var slot in TileSlots)
+            {
+                int x = i % CanvasSpaceWidth;
+                int y = i / CanvasSpaceWidth;
+                int minX = m_gameSpacePadding;
+                int minY = m_gameSpacePadding;
+                int maxX = CanvasSpaceWidth - m_gameSpacePadding;
+                int maxY = CanvasSpaceHeight - m_gameSpacePadding;
+                if (x >= minX && x < maxX && y >= minY && y < maxY)
+                {
+                    slot.IsInGameSpace = true;
+                }
+                i++;
+            }
         }
 
         #region Members
@@ -202,10 +176,7 @@ namespace HubrisEditor.GameData
         private string m_name;
         private int m_canvasSpaceWidth;
         private int m_canvasSpaceHeight;
-        private int m_gameSpaceWidth;
-        private int m_gameSpaceHeight;
-        private int m_gameSpaceOffsetX;
-        private int m_gameSpaceOffsetY;
+        private int m_gameSpacePadding;
         #endregion
     }
 }
