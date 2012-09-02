@@ -88,6 +88,11 @@
                     <Rectangle Height="50" Width="50" Fill="{Binding Path=ElevationBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="TileContentTemplate">
+                <StackPanel Background="Transparent" IsHitTestVisible="True">
+                    <Rectangle Height="50" Width="50" Fill="{Binding Path=ContentBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -114,13 +119,68 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
             </TabItem>
+            <TabItem Header="Contents">
+                <ListBox x:Name="ContentsListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </TabItem>
         </TabControl>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" Background="White" Width="200">
             <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
                 </Rectangle.Fill>
             </Rectangle>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set Tile Elevation.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Blue"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">I: Initial Player Spawn</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LightBlue"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">R: Player Reinforcements.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Red"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">E: Initial Enemy Spawn.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="OrangeRed"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">S: Enemy Spawns.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Green"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">F: Initial Friendly Spawn.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LightGreen"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">D: Friendly Spawns.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Gold"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">N: Initial Neutral Spawn.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="PaleGoldenrod"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Neutral Spawns.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Purple"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">H: Hidden Treasure.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Magenta"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">V: Visit.</TextBlock>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

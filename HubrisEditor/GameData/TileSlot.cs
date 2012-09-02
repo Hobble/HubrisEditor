@@ -26,6 +26,19 @@ namespace HubrisEditor.GameData
                 s_elevationBrushes.Add(new SolidColorBrush(new Color() { A = 255, R = value, G = value, B = value }));
                 value += 31;
             }
+
+            s_placementBrushes = new List<SolidColorBrush>();
+            s_placementBrushes.Add(Brushes.White);
+            s_placementBrushes.Add(Brushes.Blue);
+            s_placementBrushes.Add(Brushes.LightBlue);
+            s_placementBrushes.Add(Brushes.Red);
+            s_placementBrushes.Add(Brushes.OrangeRed);
+            s_placementBrushes.Add(Brushes.Green);
+            s_placementBrushes.Add(Brushes.LightGreen);
+            s_placementBrushes.Add(Brushes.Gold);
+            s_placementBrushes.Add(Brushes.PaleGoldenrod);
+            s_placementBrushes.Add(Brushes.Purple);
+            s_placementBrushes.Add(Brushes.Magenta);
         }
 
         [XmlIgnore()]
@@ -91,6 +104,30 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("TileContentEnum")]
+        public int TileContentEnum
+        {
+            get
+            {
+                return m_tileContentEnum;
+            }
+            set
+            {
+                m_tileContentEnum = Math.Min(Math.Max(value, 0), s_placementBrushes.Count - 1);
+                NotifyPropertyChanged("TileContentEnum");
+                NotifyPropertyChanged("ContentBrush");
+            }
+        }
+
+        [XmlIgnore()]
+        public SolidColorBrush ContentBrush
+        {
+            get
+            {
+                return s_placementBrushes[m_tileContentEnum];
+            }
+        }
+
         [XmlAttribute("IsInGameSpace")]
         public bool IsInGameSpace
         {
@@ -133,8 +170,10 @@ namespace HubrisEditor.GameData
         private TileType m_tile;
         private bool m_isInGameSpace;
         private int m_tileElevation = 4;
+        private int m_tileContentEnum;
         private static List<SolidColorBrush> s_elevationBrushes;
         private static int s_maxElevation;
         private static int s_minElevation;
+        private static List<SolidColorBrush> s_placementBrushes;
     }
 }

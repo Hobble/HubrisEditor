@@ -33,55 +33,82 @@ namespace HubrisEditor.Xaml.UserControls
 
         private void Item_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
             if (e.Key == Key.P)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.SetTileToCurrentlySelected();
             }
             else if (e.Key == Key.D0)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 0;
             }
             else if (e.Key == Key.D1)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 1;
             }
             else if (e.Key == Key.D2)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 2;
             }
             else if (e.Key == Key.D3)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 3;
             }
             else if (e.Key == Key.D4)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 4;
             }
             else if (e.Key == Key.D5)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 5;
             }
             else if (e.Key == Key.D6)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 6;
             }
             else if (e.Key == Key.D7)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 7;
             }
             else if (e.Key == Key.D8)
             {
-                TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
                 slot.TileElevation = 8;
+            }
+            else if (e.Key == Key.I)
+            {
+                slot.TileContentEnum = 1;
+            }
+            else if (e.Key == Key.R)
+            {
+                slot.TileContentEnum = 2;
+            }
+            else if (e.Key == Key.E)
+            {
+                slot.TileContentEnum = 3;
+            }
+            else if (e.Key == Key.F)
+            {
+                slot.TileContentEnum = 4;
+            }
+            else if (e.Key == Key.D)
+            {
+                slot.TileContentEnum = 5;
+            }
+            else if (e.Key == Key.N)
+            {
+                slot.TileContentEnum = 6;
+            }
+            else if (e.Key == Key.U)
+            {
+                slot.TileContentEnum = 7;
+            }
+            else if (e.Key == Key.H)
+            {
+                slot.TileContentEnum = 8;
+            }
+            else if (e.Key == Key.V)
+            {
+                slot.TileContentEnum = 9;
             }
         }
 
