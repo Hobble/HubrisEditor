@@ -153,7 +153,15 @@ namespace HubrisEditor
             ColorSwatch swatch = new ColorSwatch();
             swatch.Owner = this;
             swatch.Closing += Swatch_Closing;
-            swatch.DataContext = (sender as Button).DataContext;
+            TileType type = (sender as Button).DataContext as TileType;
+            swatch.DataContext = type;
+            if (type.TileColor != null)
+            {
+                swatch.HSVColorSwatch.Red = type.TileColor.R;
+                swatch.HSVColorSwatch.Green = type.TileColor.G;
+                swatch.HSVColorSwatch.Blue = type.TileColor.B;
+                swatch.HSVColorSwatch.Alpha = type.TileColor.A;
+            }
             swatch.Show();
         }
 
@@ -167,6 +175,28 @@ namespace HubrisEditor
         private void GenerateTilesButton_Click(object sender, RoutedEventArgs e)
         {
             ((sender as Button).DataContext as Scenario).GenerateTiles();
+        }
+
+        private void ReplaceTilesMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ScenariosListBox.SelectedItem != null)
+            {
+                Scenario scenario = ScenariosListBox.SelectedItem as Scenario;
+                ReplaceTilesWindow window = new ReplaceTilesWindow(m_projectManager.CurrentCampaign);
+                window.ShowDialog();
+                if (window.ReplaceComboBox.SelectedItem != null && window.WithComboBox.SelectedItem != null)
+                {
+                    TileType replace = window.ReplaceComboBox.SelectedItem as TileType;
+                    TileType with = window.WithComboBox.SelectedItem as TileType;
+                    foreach (var tileSlot in scenario.TileSlots)
+                    {
+                        if (tileSlot.TileTypeKey == replace.Name)
+                        {
+                            tileSlot.TileTypeKey = with.Name;
+                        }
+                    }
+                }
+            }
         }
 
         private Random m_random;

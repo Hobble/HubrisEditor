@@ -1,0 +1,42 @@
+﻿<Window x:Class="HubrisEditor.Xaml.Windows.ReplaceTilesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Replace Tiles" Height="300" Width="300">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Xaml/Styles/ColorBrushes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="TileTypesComboBoxTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Height="16" Width="16" VerticalAlignment="Center" Fill="{Binding Path=ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource ResourceKey=TealCheckers}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">Replace All:</TextBlock>
+            <ComboBox ItemsSource="{Binding Path=TileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" x:Name="ReplaceComboBox" ItemTemplate="{StaticResource ResourceKey=TileTypesComboBoxTemplate}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">With:</TextBlock>
+            <ComboBox  ItemsSource="{Binding Path=TileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" x:Name="WithComboBox" ItemTemplate="{StaticResource ResourceKey=TileTypesComboBoxTemplate}"/>
+            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Width="75" x:Name="CancelButton" Click="CancelButton_Click">Cancel</Button>
+                <Button Width="75" Margin="10, 0, 0, 0" IsDefault="True" x:Name="OKButton" Click="OKButton_Click">OK</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

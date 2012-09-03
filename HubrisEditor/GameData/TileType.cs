@@ -177,6 +177,20 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("Climbable")]
+        public bool Climbable
+        {
+            get
+            {
+                return m_climbable;
+            }
+            set
+            {
+                m_climbable = value;
+                NotifyPropertyChanged("Climbable");
+            }
+        }
+
         public void PostDeserialize(ProjectManager sender)
         {
             m_manager = sender;
@@ -194,5 +208,6 @@ namespace HubrisEditor.GameData
         private double m_travelCost = 1.0;
         private bool m_hidesVision;
         private bool m_blocksPassage;
+        private bool m_climbable;
     }
 }

@@ -77,9 +77,16 @@
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml\Windows\ReplaceTilesWindow.xaml.cs">
+      <DependentUpon>ReplaceTilesWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Xaml\Windows\ReplaceTilesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Resource Include="Xaml\Styles\ColorBrushes.xaml">
       <SubType>Designer</SubType>

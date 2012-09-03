@@ -117,6 +117,7 @@ namespace HubrisEditor.Xaml.UserControls
             else if (e.Key == Key.H)
             {
                 slot.TileContentEnum = 10;
+                e.Handled = true;
             }
             else if (e.Key == Key.V)
             {

@@ -56,6 +56,7 @@ namespace HubrisEditor.GameData
             {
                 scenario.PostDeserialize(sender);
             }
+            SortTyleTypes();
         }
 
         [XmlArray("Scenarios")]
@@ -97,6 +98,21 @@ namespace HubrisEditor.GameData
             {
                 m_name = value;
                 NotifyPropertyChanged("Name");
+            }
+        }
+
+        public void SortTyleTypes()
+        {
+            List<TileType> types = new List<TileType>();
+            foreach (var type in m_tileTypes)
+            {
+                types.Add(type);
+            }
+            types.Sort(new Comparison<TileType>((TileType a, TileType b) => a.Name.CompareTo(b.Name)));
+            m_tileTypes.Clear();
+            foreach (var type in types)
+            {
+                m_tileTypes.Add(type);
             }
         }
 
