@@ -28,11 +28,14 @@ namespace HubrisEditor.Xaml.Windows
 
         private void InitializeColors()
         {
-            Type colors = typeof(Colors);
-            var info = colors.GetProperties();
-            foreach (var property in info)
+            if (SystemColors.Count == 0)
             {
-                SystemColors.Add(new KeyValuePair<string,SolidColorBrush>(property.Name, new SolidColorBrush((Color)ColorConverter.ConvertFromString(property.Name))));
+                Type colors = typeof(Colors);
+                var info = colors.GetProperties();
+                foreach (var property in info)
+                {
+                    SystemColors.Add(new KeyValuePair<string, SolidColorBrush>(property.Name, new SolidColorBrush((Color)ColorConverter.ConvertFromString(property.Name))));
+                }
             }
         }
 

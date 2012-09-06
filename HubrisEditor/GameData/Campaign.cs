@@ -35,6 +35,7 @@ namespace HubrisEditor.GameData
         {
             m_scenarios = new ObservableCollection<Scenario>();
             m_tileTypes = new ObservableCollection<TileType>();
+            m_tileUnitPlacements = new ObservableCollection<TileUnitPlacement>();
         }
 
         public void PostDeserialize(ProjectManager sender)
@@ -48,6 +49,14 @@ namespace HubrisEditor.GameData
             {
                 tileType.PostDeserialize(sender);
             }
+            if (TileUnitPlacements == null)
+            {
+                TileUnitPlacements = new ObservableCollection<TileUnitPlacement>();
+            }
+            foreach (var tileUnitPlacement in TileUnitPlacements)
+            {
+                tileUnitPlacement.PostDeserialize(sender);
+            }
             if (Scenarios == null)
             {
                 Scenarios = new ObservableCollection<Scenario>();
@@ -56,7 +65,7 @@ namespace HubrisEditor.GameData
             {
                 scenario.PostDeserialize(sender);
             }
-            SortTyleTypes();
+            SortTileTypes();
         }
 
         [XmlArray("Scenarios")]
@@ -87,6 +96,20 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlArray("TileUnitPlacements")]
+        public ObservableCollection<TileUnitPlacement> TileUnitPlacements
+        {
+            get
+            {
+                return m_tileUnitPlacements;
+            }
+            set
+            {
+                m_tileUnitPlacements = value;
+                NotifyPropertyChanged("TileUnitPlacements");
+            }
+        }
+
         [XmlAttribute("Name")]
         public string Name
         {
@@ -101,7 +124,7 @@ namespace HubrisEditor.GameData
             }
         }
 
-        public void SortTyleTypes()
+        public void SortTileTypes()
         {
             List<TileType> types = new List<TileType>();
             foreach (var type in m_tileTypes)
@@ -119,6 +142,7 @@ namespace HubrisEditor.GameData
         #region Members
         private ObservableCollection<Scenario> m_scenarios;
         private ObservableCollection<TileType> m_tileTypes;
+        private ObservableCollection<TileUnitPlacement> m_tileUnitPlacements;
         private string m_name;
         private ProjectManager m_manager;
         #endregion

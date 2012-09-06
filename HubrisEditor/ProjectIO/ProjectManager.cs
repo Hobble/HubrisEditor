@@ -25,6 +25,19 @@ namespace HubrisEditor.ProjectIO
             }
         }
 
+        public TileUnitPlacement DefaultUnitPlacement
+        {
+            get
+            {
+                return m_tileUnitPlacement;
+            }
+            set
+            {
+                m_tileUnitPlacement = value;
+                NotifyPropertyChanged("DefaultUnitPlacement");
+            }
+        }
+
         public Campaign CurrentCampaign
         {
             get
@@ -104,5 +117,6 @@ namespace HubrisEditor.ProjectIO
         private string m_currentPath;
         private bool m_isProjectLoaded;
         private TileType m_defaultTile;
+        private TileUnitPlacement m_tileUnitPlacement;
     }
 }

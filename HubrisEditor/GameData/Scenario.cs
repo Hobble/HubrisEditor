@@ -170,6 +170,34 @@ namespace HubrisEditor.GameData
             }
         }
 
+        public void ExpandWidth(int expandAmount)
+        {
+            CanvasSpaceWidth += expandAmount;
+            NotifyPropertyChanged("TileSlotGridHeight");
+            NotifyPropertyChanged("TileSlotGridWidth");
+            TileType defaultTile = m_manager.DefaultTile;
+            if (defaultTile == null)
+            {
+                defaultTile = m_manager.CurrentCampaign.TileTypes.FirstOrDefault<TileType>();
+                if (defaultTile == null)
+                {
+                    return;
+                }
+            }
+            for (int i = 0; i < CanvasSpaceHeight; i++)
+            {
+                int targetIndex = (CanvasSpaceWidth - expandAmount) * (i + 1);
+                for (int j = 0; j < expandAmount; j++)
+                {
+                    TileSlot slot = new TileSlot();
+                    slot.PostDeserialize(m_manager);
+                    slot.TileTypeKey = defaultTile.Name;
+                    m_tileSlots.Insert(targetIndex + j + expandAmount * i, slot);
+                }
+            }
+            UpdateOffsets();
+        }
+
         #region Members
         private ProjectManager m_manager;
         private ObservableCollection<TileSlot> m_tileSlots;

@@ -64,6 +64,7 @@
     <Compile Include="EffectLibrary\SVField.cs" />
     <Compile Include="GameData\TileSlot.cs" />
     <Compile Include="GameData\TileType.cs" />
+    <Compile Include="GameData\TileUnitPlacement.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />
     <Compile Include="Xaml\UserControls\HSVColorSwatch.xaml.cs">
       <DependentUpon>HSVColorSwatch.xaml</DependentUpon>

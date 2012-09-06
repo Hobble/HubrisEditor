@@ -148,6 +148,17 @@ namespace HubrisEditor
             m_projectManager.CurrentCampaign.TileTypes.Add(type);
         }
 
+        private void AddUnitPlacementMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            TileUnitPlacement unitPlacement = new TileUnitPlacement() { Name = "New Unit Placement " + m_random.Next(100000).ToString() };
+            unitPlacement.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.TileUnitPlacements.Add(unitPlacement);
+        }
+
         private void TileTypeColorButton_Click(object sender, RoutedEventArgs e)
         {
             ColorSwatch swatch = new ColorSwatch();
@@ -165,10 +176,34 @@ namespace HubrisEditor
             swatch.Show();
         }
 
+        private void UnitPlacementColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorSwatch swatch = new ColorSwatch();
+            swatch.Owner = this;
+            swatch.Closing += PlacementSwatch_Closing;
+            TileUnitPlacement unitPlacement = (sender as Button).DataContext as TileUnitPlacement;
+            swatch.DataContext = unitPlacement;
+            if (unitPlacement.TileColor != null)
+            {
+                swatch.HSVColorSwatch.Red = unitPlacement.TileColor.R;
+                swatch.HSVColorSwatch.Green = unitPlacement.TileColor.G;
+                swatch.HSVColorSwatch.Blue = unitPlacement.TileColor.B;
+                swatch.HSVColorSwatch.Alpha = unitPlacement.TileColor.A;
+            }
+            swatch.Show();
+        }
+
         private void Swatch_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ColorSwatch swatch = sender as ColorSwatch;
             TileType context = swatch.DataContext as TileType;
+            context.TileColor = new Color() { R = swatch.HSVColorSwatch.Red, G = swatch.HSVColorSwatch.Green, B = swatch.HSVColorSwatch.Blue, A = swatch.HSVColorSwatch.Alpha };
+        }
+
+        private void PlacementSwatch_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ColorSwatch swatch = sender as ColorSwatch;
+            TileUnitPlacement context = swatch.DataContext as TileUnitPlacement;
             context.TileColor = new Color() { R = swatch.HSVColorSwatch.Red, G = swatch.HSVColorSwatch.Green, B = swatch.HSVColorSwatch.Blue, A = swatch.HSVColorSwatch.Alpha };
         }
 
@@ -197,6 +232,11 @@ namespace HubrisEditor
                     }
                 }
             }
+        }
+
+        private void ExpandWidthButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((sender as Button).DataContext as Scenario).ExpandWidth(int.Parse(ExpandWidthTextBox.Text));
         }
 
         private Random m_random;

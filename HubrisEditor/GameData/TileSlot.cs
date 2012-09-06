@@ -40,6 +40,9 @@ namespace HubrisEditor.GameData
             s_placementBrushes.Add(Brushes.PaleGoldenrod);
             s_placementBrushes.Add(Brushes.Purple);
             s_placementBrushes.Add(Brushes.Magenta);
+            s_placementBrushes.Add(Brushes.Brown);
+            s_placementBrushes.Add(Brushes.LimeGreen);
+            s_placementBrushes.Add(Brushes.CadetBlue);
         }
 
         [XmlIgnore()]
@@ -74,6 +77,45 @@ namespace HubrisEditor.GameData
                         if (tileType.Name.Equals(m_tileTypeKey))
                         {
                             Tile = tileType;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        [XmlIgnore()]
+        public TileUnitPlacement UnitPlacement
+        {
+            get
+            {
+                return m_unitPlacement;
+            }
+            private set
+            {
+                m_unitPlacement = value;
+                NotifyPropertyChanged("UnitPlacement");
+            }
+        }
+
+        [XmlAttribute("UnitPlacementKey")]
+        public string UnitPlacementKey
+        {
+            get
+            {
+                return m_unitPlacementKey;
+            }
+            set
+            {
+                m_unitPlacementKey = value;
+                NotifyPropertyChanged("UnitPlacementKey");
+                if (m_initialized)
+                {
+                    foreach (var unitPlacement in m_manager.CurrentCampaign.TileUnitPlacements)
+                    {
+                        if (unitPlacement.Name.Equals(m_unitPlacementKey))
+                        {
+                            UnitPlacement = unitPlacement;
                             break;
                         }
                     }
@@ -147,11 +189,30 @@ namespace HubrisEditor.GameData
         {
             m_manager = sender;
             m_initialized = true;
+            if (m_unitPlacementKey == null || m_unitPlacementKey == string.Empty)
+            {
+                if (m_tileContentEnum < m_manager.CurrentCampaign.TileUnitPlacements.Count)
+                {
+                    m_unitPlacementKey = m_manager.CurrentCampaign.TileUnitPlacements[m_tileContentEnum].Name;
+                }
+                else
+                {
+                    m_unitPlacementKey = m_manager.CurrentCampaign.TileUnitPlacements[0].Name;
+                }
+            }
             foreach (var tileType in m_manager.CurrentCampaign.TileTypes)
             {
                 if (tileType.Name.Equals(m_tileTypeKey))
                 {
                     Tile = tileType;
+                    break;
+                }
+            }
+            foreach (var unitPlacement in m_manager.CurrentCampaign.TileUnitPlacements)
+            {
+                if (unitPlacement.Name.Equals(m_unitPlacementKey))
+                {
+                    UnitPlacement = unitPlacement;
                     break;
                 }
             }
@@ -169,6 +230,8 @@ namespace HubrisEditor.GameData
         private bool m_initialized;
         private string m_tileTypeKey;
         private TileType m_tile;
+        private string m_unitPlacementKey;
+        private TileUnitPlacement m_unitPlacement;
         private bool m_isInGameSpace;
         private int m_tileElevation = 4;
         private int m_tileContentEnum;

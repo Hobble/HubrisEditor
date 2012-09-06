@@ -90,9 +90,9 @@
                     </Border>
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Key="TileContentTemplate">
+            <DataTemplate x:Key="UnitPlacementTemplate">
                 <StackPanel Background="Transparent" IsHitTestVisible="True">
-                    <Border BorderBrush="{Binding Path=ContentBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True" BorderThickness="15">
+                    <Border BorderBrush="{Binding Path=UnitPlacement.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True" BorderThickness="15">
                         <Rectangle Height="20" Width="20" Fill="{Binding Path=Tile.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
                     </Border>
                 </StackPanel>
@@ -123,8 +123,8 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
             </TabItem>
-            <TabItem Header="Contents">
-                <ListBox x:Name="ContentsListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}">
+            <TabItem Header="Unit Placement">
+                <ListBox x:Name="UnitPlacementListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=UnitPlacementTemplate}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
@@ -192,6 +192,18 @@
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                 <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Magenta"/>
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">V: Visit.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Brown"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">O: Door.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LimeGreen"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Escape.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="CadetBlue"/>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Z: Seize.</TextBlock>
             </StackPanel>
         </StackPanel>
     </Grid>

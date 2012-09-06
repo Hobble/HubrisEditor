@@ -123,6 +123,18 @@ namespace HubrisEditor.Xaml.UserControls
             {
                 slot.TileContentEnum = 11;
             }
+            else if (e.Key == Key.O)
+            {
+                slot.TileContentEnum = 12;
+            }
+            else if (e.Key == Key.C)
+            {
+                slot.TileContentEnum = 13;
+            }
+            else if (e.Key == Key.Z)
+            {
+                slot.TileContentEnum = 14;
+            }
         }
 
         private void TilesListBox_Loaded(object sender, RoutedEventArgs e)
