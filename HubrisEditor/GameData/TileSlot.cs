@@ -26,23 +26,6 @@ namespace HubrisEditor.GameData
                 s_elevationBrushes.Add(new SolidColorBrush(new Color() { A = 255, R = value, G = value, B = value }));
                 value += 31;
             }
-
-            s_placementBrushes = new List<SolidColorBrush>();
-            s_placementBrushes.Add(Brushes.LightGray);
-            s_placementBrushes.Add(Brushes.Blue);
-            s_placementBrushes.Add(Brushes.LightBlue);
-            s_placementBrushes.Add(Brushes.Red);
-            s_placementBrushes.Add(Brushes.Maroon);
-            s_placementBrushes.Add(Brushes.OrangeRed);
-            s_placementBrushes.Add(Brushes.Green);
-            s_placementBrushes.Add(Brushes.LightGreen);
-            s_placementBrushes.Add(Brushes.Gold);
-            s_placementBrushes.Add(Brushes.PaleGoldenrod);
-            s_placementBrushes.Add(Brushes.Purple);
-            s_placementBrushes.Add(Brushes.Magenta);
-            s_placementBrushes.Add(Brushes.Brown);
-            s_placementBrushes.Add(Brushes.LimeGreen);
-            s_placementBrushes.Add(Brushes.CadetBlue);
         }
 
         [XmlIgnore()]
@@ -186,30 +169,6 @@ namespace HubrisEditor.GameData
             }
         }
 
-        [XmlAttribute("TileContentEnum")]
-        public int TileContentEnum
-        {
-            get
-            {
-                return m_tileContentEnum;
-            }
-            set
-            {
-                m_tileContentEnum = Math.Min(Math.Max(value, 0), s_placementBrushes.Count - 1);
-                NotifyPropertyChanged("TileContentEnum");
-                NotifyPropertyChanged("ContentBrush");
-            }
-        }
-
-        [XmlIgnore()]
-        public SolidColorBrush ContentBrush
-        {
-            get
-            {
-                return s_placementBrushes[m_tileContentEnum];
-            }
-        }
-
         [XmlAttribute("IsInGameSpace")]
         public bool IsInGameSpace
         {
@@ -228,28 +187,6 @@ namespace HubrisEditor.GameData
         {
             m_manager = sender;
             m_initialized = true;
-            if (m_unitPlacementKey == null || m_unitPlacementKey == string.Empty)
-            {
-                if (m_tileContentEnum < m_manager.CurrentCampaign.TileUnitPlacements.Count)
-                {
-                    m_unitPlacementKey = m_manager.CurrentCampaign.TileUnitPlacements[m_tileContentEnum].Name;
-                }
-                else
-                {
-                    m_unitPlacementKey = m_manager.CurrentCampaign.TileUnitPlacements[0].Name;
-                }
-            }
-            if (m_tileContentKey == null || m_tileContentKey == string.Empty)
-            {
-                if (m_tileContentEnum > (m_manager.CurrentCampaign.TileUnitPlacements.Count - 1) && m_tileContentEnum < m_manager.CurrentCampaign.TileUnitPlacements.Count - 1 + m_manager.CurrentCampaign.TileContents.Count)
-                {
-                    m_tileContentKey = m_manager.CurrentCampaign.TileContents[m_tileContentEnum - (m_manager.CurrentCampaign.TileUnitPlacements.Count - 1)].Name;
-                }
-                else
-                {
-                    m_tileContentKey = m_manager.CurrentCampaign.TileUnitPlacements[0].Name;
-                }
-            }
             foreach (var tileType in m_manager.CurrentCampaign.TileTypes)
             {
                 if (tileType.Name.Equals(m_tileTypeKey))
@@ -284,6 +221,22 @@ namespace HubrisEditor.GameData
             }
         }
 
+        public void SetPlacementToCurrentlySelected()
+        {
+            if (m_manager.DefaultUnitPlacement != null)
+            {
+                UnitPlacementKey = m_manager.DefaultUnitPlacement.Name;
+            }
+        }
+
+        public void SetContentToCurrentlySelected()
+        {
+            if (m_manager.DefaultTileContent != null)
+            {
+                TileContentKey = m_manager.DefaultTileContent.Name;
+            }
+        }
+
         private ProjectManager m_manager;
         private bool m_initialized;
         private string m_tileTypeKey;
@@ -298,6 +251,5 @@ namespace HubrisEditor.GameData
         private static List<SolidColorBrush> s_elevationBrushes;
         private static int s_maxElevation;
         private static int s_minElevation;
-        private static List<SolidColorBrush> s_placementBrushes;
     }
 }

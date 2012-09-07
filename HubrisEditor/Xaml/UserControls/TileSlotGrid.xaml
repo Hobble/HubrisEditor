@@ -159,67 +159,13 @@
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set Tile Elevation.</TextBlock>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set tile elevation.</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LightGray"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Delete: Clear Tile Content</TextBlock>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Set tile unit placement.</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Blue"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">I: Initial Player Spawn</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LightBlue"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">R: Player Reinforcements.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Red"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">E: Initial Enemy Spawn.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Maroon"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">B: Enemy Boss.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="OrangeRed"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">S: Enemy Spawns.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Green"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">F: Initial Friendly Spawn.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LightGreen"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">D: Friendly Spawns.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Gold"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">N: Initial Neutral Spawn.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="PaleGoldenrod"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Neutral Spawns.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Purple"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">H: Hidden Treasure.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Magenta"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">V: Visit.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="Brown"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">O: Door.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="LimeGreen"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Escape.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <Rectangle Margin="5, 0, 0, 0" Height="16" Width="16" Fill="CadetBlue"/>
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Z: Seize.</TextBlock>
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
             </StackPanel>
         </StackPanel>
     </Grid>
