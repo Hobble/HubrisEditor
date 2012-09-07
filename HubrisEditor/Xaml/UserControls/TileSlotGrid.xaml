@@ -113,7 +113,7 @@
         </Grid.ColumnDefinitions>
         <TabControl x:Name="ViewsTabControl">
             <TabItem Header="Tile Type">
-                <ListBox x:Name="TilesListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}">
+                <ListBox x:Name="TilesListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}" SelectedItem="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
@@ -122,7 +122,7 @@
                 </ListBox>
             </TabItem>
             <TabItem Header="Elevation">
-                <ListBox x:Name="ElevationListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}">
+                <ListBox x:Name="ElevationListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}" SelectedItem="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
@@ -131,7 +131,7 @@
                 </ListBox>
             </TabItem>
             <TabItem Header="Unit Placement">
-                <ListBox x:Name="UnitPlacementListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=UnitPlacementTemplate}">
+                <ListBox x:Name="UnitPlacementListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=UnitPlacementTemplate}" SelectedItem="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
@@ -140,7 +140,7 @@
                 </ListBox>
             </TabItem>
             <TabItem Header="Tile Content">
-                <ListBox x:Name="TileContentListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}">
+                <ListBox x:Name="TileContentListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}" SelectedItem="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
@@ -149,7 +149,7 @@
                 </ListBox>
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Column="1" Background="White" Width="200">
+        <StackPanel Grid.Column="1" Background="White" Width="200" x:Name="AttributesStackPanel"  DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
             <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
                 <Rectangle.Fill>
                     <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
@@ -166,6 +166,22 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Left</TextBlock>
+                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceLeft, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Right</TextBlock>
+                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceRight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Top</TextBlock>
+                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceTop, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Bottom</TextBlock>
+                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceBottom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

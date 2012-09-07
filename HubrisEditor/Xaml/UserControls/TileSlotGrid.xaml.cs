@@ -106,5 +106,14 @@ namespace HubrisEditor.Xaml.UserControls
 
         // Using a DependencyProperty as the backing store for RatioHeight.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RatioHeightProperty = DependencyProperty.Register("RatioHeight", typeof(double), typeof(TileSlotGrid), new PropertyMetadata(200.0));
+
+        public TileSlot SelectedTile
+        {
+            get { return (TileSlot)GetValue(SelectedTileProperty); }
+            set { SetValue(SelectedTileProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedTile.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedTileProperty = DependencyProperty.Register("SelectedTile", typeof(TileSlot), typeof(TileSlotGrid), new PropertyMetadata(null));
     }
 }

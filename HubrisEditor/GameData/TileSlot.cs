@@ -183,6 +183,62 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlAttribute("FenceLeft")]
+        public bool FenceLeft
+        {
+            get
+            {
+                return m_fenceLeft;
+            }
+            set
+            {
+                m_fenceLeft = value;
+                NotifyPropertyChanged("FenceLeft");
+            }
+        }
+
+        [XmlAttribute("FenceRight")]
+        public bool FenceRight
+        {
+            get
+            {
+                return m_fenceRight;
+            }
+            set
+            {
+                m_fenceRight = value;
+                NotifyPropertyChanged("FenceRight");
+            }
+        }
+
+        [XmlAttribute("FenceTop")]
+        public bool FenceTop
+        {
+            get
+            {
+                return m_fenceTop;
+            }
+            set
+            {
+                m_fenceTop = value;
+                NotifyPropertyChanged("FenceTop");
+            }
+        }
+
+        [XmlAttribute("FenceBottom")]
+        public bool FenceBottom
+        {
+            get
+            {
+                return m_fenceBottom;
+            }
+            set
+            {
+                m_fenceBottom = value;
+                NotifyPropertyChanged("FenceBottom");
+            }
+        }
+
         public void PostDeserialize(ProjectManager sender)
         {
             m_manager = sender;
@@ -248,6 +304,10 @@ namespace HubrisEditor.GameData
         private bool m_isInGameSpace;
         private int m_tileElevation = 4;
         private int m_tileContentEnum;
+        private bool m_fenceLeft;
+        private bool m_fenceRight;
+        private bool m_fenceTop;
+        private bool m_fenceBottom;
         private static List<SolidColorBrush> s_elevationBrushes;
         private static int s_maxElevation;
         private static int s_minElevation;

@@ -270,11 +270,6 @@ namespace HubrisEditor
             }
         }
 
-        private void ExpandWidthButton_Click(object sender, RoutedEventArgs e)
-        {
-            ((sender as Button).DataContext as Scenario).ExpandWidth(int.Parse(ExpandWidthTextBox.Text));
-        }
-
         private Random m_random;
         private ProjectManager m_projectManager;
     }
