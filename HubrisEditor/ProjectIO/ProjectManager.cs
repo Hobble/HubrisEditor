@@ -38,6 +38,19 @@ namespace HubrisEditor.ProjectIO
             }
         }
 
+        public TileContent DefaultTileContent
+        {
+            get
+            {
+                return m_tileContent;
+            }
+            set
+            {
+                m_tileContent = value;
+                NotifyPropertyChanged("DefaultTileContent");
+            }
+        }
+
         public Campaign CurrentCampaign
         {
             get
@@ -118,5 +131,6 @@ namespace HubrisEditor.ProjectIO
         private bool m_isProjectLoaded;
         private TileType m_defaultTile;
         private TileUnitPlacement m_tileUnitPlacement;
+        private TileContent m_tileContent;
     }
 }

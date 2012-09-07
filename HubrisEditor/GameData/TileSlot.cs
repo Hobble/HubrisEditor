@@ -123,6 +123,45 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlIgnore()]
+        public TileContent Content
+        {
+            get
+            {
+                return m_tileContent;
+            }
+            private set
+            {
+                m_tileContent = value;
+                NotifyPropertyChanged("Content");
+            }
+        }
+
+        [XmlAttribute("TileContentKey")]
+        public string TileContentKey
+        {
+            get
+            {
+                return m_tileContentKey;
+            }
+            set
+            {
+                m_tileContentKey = value;
+                NotifyPropertyChanged("TileContentKey");
+                if (m_initialized)
+                {
+                    foreach (var tileContent in m_manager.CurrentCampaign.TileContents)
+                    {
+                        if (tileContent.Name.Equals(m_tileContentKey))
+                        {
+                            Content = tileContent;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         [XmlAttribute("TileElevation")]
         public int TileElevation
         {
@@ -200,6 +239,17 @@ namespace HubrisEditor.GameData
                     m_unitPlacementKey = m_manager.CurrentCampaign.TileUnitPlacements[0].Name;
                 }
             }
+            if (m_tileContentKey == null || m_tileContentKey == string.Empty)
+            {
+                if (m_tileContentEnum > (m_manager.CurrentCampaign.TileUnitPlacements.Count - 1) && m_tileContentEnum < m_manager.CurrentCampaign.TileUnitPlacements.Count - 1 + m_manager.CurrentCampaign.TileContents.Count)
+                {
+                    m_tileContentKey = m_manager.CurrentCampaign.TileContents[m_tileContentEnum - (m_manager.CurrentCampaign.TileUnitPlacements.Count - 1)].Name;
+                }
+                else
+                {
+                    m_tileContentKey = m_manager.CurrentCampaign.TileUnitPlacements[0].Name;
+                }
+            }
             foreach (var tileType in m_manager.CurrentCampaign.TileTypes)
             {
                 if (tileType.Name.Equals(m_tileTypeKey))
@@ -213,6 +263,14 @@ namespace HubrisEditor.GameData
                 if (unitPlacement.Name.Equals(m_unitPlacementKey))
                 {
                     UnitPlacement = unitPlacement;
+                    break;
+                }
+            }
+            foreach (var tileContent in m_manager.CurrentCampaign.TileContents)
+            {
+                if (tileContent.Name.Equals(m_tileContentKey))
+                {
+                    Content = tileContent;
                     break;
                 }
             }
@@ -232,6 +290,8 @@ namespace HubrisEditor.GameData
         private TileType m_tile;
         private string m_unitPlacementKey;
         private TileUnitPlacement m_unitPlacement;
+        private string m_tileContentKey;
+        private TileContent m_tileContent;
         private bool m_isInGameSpace;
         private int m_tileElevation = 4;
         private int m_tileContentEnum;

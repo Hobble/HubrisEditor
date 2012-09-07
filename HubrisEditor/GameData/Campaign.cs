@@ -36,6 +36,7 @@ namespace HubrisEditor.GameData
             m_scenarios = new ObservableCollection<Scenario>();
             m_tileTypes = new ObservableCollection<TileType>();
             m_tileUnitPlacements = new ObservableCollection<TileUnitPlacement>();
+            m_tileContents = new ObservableCollection<TileContent>();
         }
 
         public void PostDeserialize(ProjectManager sender)
@@ -56,6 +57,14 @@ namespace HubrisEditor.GameData
             foreach (var tileUnitPlacement in TileUnitPlacements)
             {
                 tileUnitPlacement.PostDeserialize(sender);
+            }
+            if (TileContents == null)
+            {
+                TileContents = new ObservableCollection<TileContent>();
+            }
+            foreach (var tileContent in TileContents)
+            {
+                tileContent.PostDeserialize(sender);
             }
             if (Scenarios == null)
             {
@@ -110,6 +119,20 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlArray("TileContents")]
+        public ObservableCollection<TileContent> TileContents
+        {
+            get
+            {
+                return m_tileContents;
+            }
+            set
+            {
+                m_tileContents = value;
+                NotifyPropertyChanged("TileContents");
+            }
+        }
+
         [XmlAttribute("Name")]
         public string Name
         {
@@ -143,6 +166,7 @@ namespace HubrisEditor.GameData
         private ObservableCollection<Scenario> m_scenarios;
         private ObservableCollection<TileType> m_tileTypes;
         private ObservableCollection<TileUnitPlacement> m_tileUnitPlacements;
+        private ObservableCollection<TileContent> m_tileContents;
         private string m_name;
         private ProjectManager m_manager;
         #endregion

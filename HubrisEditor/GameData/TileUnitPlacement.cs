@@ -11,53 +11,22 @@ using System.Xml.Serialization;
 namespace HubrisEditor.GameData
 {
     [XmlType("TileUnitPlacement")]
-    public class TileUnitPlacement : EditorComponentBase, IPostDeserializable
+    public class TileUnitPlacement : TileDataBase
     {
-        [XmlAttribute("Name")]
-        public string Name
+        [XmlAttribute("IsVisibleInPreBattle")]
+        public bool IsVisibleInPreBattle
         {
             get
             {
-                return m_name;
+                return m_isVisibleInPreBattle;
             }
             set
             {
-                m_name = value;
-                NotifyPropertyChanged("Name");
+                m_isVisibleInPreBattle = value;
+                NotifyPropertyChanged("IsVisibleInPreBattle");
             }
         }
 
-        [XmlIgnore()]
-        public SolidColorBrush ColorBrush
-        {
-            get
-            {
-                return new SolidColorBrush(m_tileColor);
-            }
-        }
-
-        [XmlElement("TileColor")]
-        public Color TileColor
-        {
-            get
-            {
-                return m_tileColor;
-            }
-            set
-            {
-                m_tileColor = value;
-                NotifyPropertyChanged("TileColor");
-                NotifyPropertyChanged("ColorBrush");
-            }
-        }
-
-        public void PostDeserialize(ProjectManager sender)
-        {
-            m_manager = sender;
-        }
-
-        private ProjectManager m_manager;
-        private Color m_tileColor;
-        private string m_name;
+        private bool m_isVisibleInPreBattle;
     }
 }

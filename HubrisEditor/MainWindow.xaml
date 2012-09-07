@@ -54,6 +54,7 @@
                 <MenuItem Header="Add Scenario" Click="AddScenarioMenuItem_Click"/>
                 <MenuItem Header="Add Tile Type" Click="AddTileTypeMenuItem_Click"/>
                 <MenuItem Header="Add Unit Placement" Click="AddUnitPlacementMenuItem_Click"/>
+                <MenuItem Header="Add Content" Click="AddTileContentMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Tools"/>
             <MenuItem Header="Window"/>
@@ -201,6 +202,31 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock VerticalAlignment="Center">Tile Color</TextBlock>
                                     <Button x:Name="UnitPlacementColorButton" Click="UnitPlacementColorButton_Click" VerticalAlignment="Center" Margin="5, 0, 0, 0">Select Color</Button>
+                                    <Rectangle Margin="5, 0, 0, 0" Fill="{Binding Path=ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Tile Contents">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <ListBox x:Name="TileContentListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileContents, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultTileContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=TileContentListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                                <StackPanel.Style>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=TileContentListBox, Path=SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="-1">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center">Tile Color</TextBlock>
+                                    <Button x:Name="TileContentColorButton" Click="TileContentColorButton_Click" VerticalAlignment="Center" Margin="5, 0, 0, 0">Select Color</Button>
                                     <Rectangle Margin="5, 0, 0, 0" Fill="{Binding Path=ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Height="16" Width="16" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>

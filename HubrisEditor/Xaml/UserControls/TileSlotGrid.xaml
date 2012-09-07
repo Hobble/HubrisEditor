@@ -97,6 +97,13 @@
                     </Border>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="TileContentTemplate">
+                <StackPanel Background="Transparent" IsHitTestVisible="True">
+                    <Border BorderBrush="{Binding Path=Content.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True" BorderThickness="15">
+                        <Rectangle Height="20" Width="20" Fill="{Binding Path=Tile.ColorBrush, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" IsHitTestVisible="True"/>
+                    </Border>
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -125,6 +132,15 @@
             </TabItem>
             <TabItem Header="Unit Placement">
                 <ListBox x:Name="UnitPlacementListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=UnitPlacementTemplate}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Tile Content">
+                <ListBox x:Name="TileContentListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>

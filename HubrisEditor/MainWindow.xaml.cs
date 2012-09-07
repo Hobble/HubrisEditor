@@ -159,6 +159,18 @@ namespace HubrisEditor
             m_projectManager.CurrentCampaign.TileUnitPlacements.Add(unitPlacement);
         }
 
+        private void AddTileContentMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            TileContent content = new TileContent() { Name = "New Tile Content " + m_random.Next(100000).ToString() };
+            content.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.TileContents.Add(content);
+        }
+
+
         private void TileTypeColorButton_Click(object sender, RoutedEventArgs e)
         {
             ColorSwatch swatch = new ColorSwatch();
@@ -193,6 +205,23 @@ namespace HubrisEditor
             swatch.Show();
         }
 
+        private void TileContentColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            ColorSwatch swatch = new ColorSwatch();
+            swatch.Owner = this;
+            swatch.Closing += ContentSwatch_Closing;
+            TileContent content = (sender as Button).DataContext as TileContent;
+            swatch.DataContext = content;
+            if (content.TileColor != null)
+            {
+                swatch.HSVColorSwatch.Red = content.TileColor.R;
+                swatch.HSVColorSwatch.Green = content.TileColor.G;
+                swatch.HSVColorSwatch.Blue = content.TileColor.B;
+                swatch.HSVColorSwatch.Alpha = content.TileColor.A;
+            }
+            swatch.Show();
+        }
+
         private void Swatch_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ColorSwatch swatch = sender as ColorSwatch;
@@ -204,6 +233,13 @@ namespace HubrisEditor
         {
             ColorSwatch swatch = sender as ColorSwatch;
             TileUnitPlacement context = swatch.DataContext as TileUnitPlacement;
+            context.TileColor = new Color() { R = swatch.HSVColorSwatch.Red, G = swatch.HSVColorSwatch.Green, B = swatch.HSVColorSwatch.Blue, A = swatch.HSVColorSwatch.Alpha };
+        }
+
+        private void ContentSwatch_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ColorSwatch swatch = sender as ColorSwatch;
+            TileContent context = swatch.DataContext as TileContent;
             context.TileColor = new Color() { R = swatch.HSVColorSwatch.Red, G = swatch.HSVColorSwatch.Green, B = swatch.HSVColorSwatch.Blue, A = swatch.HSVColorSwatch.Alpha };
         }
 

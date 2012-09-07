@@ -11,46 +11,8 @@ using System.Xml.Serialization;
 namespace HubrisEditor.GameData
 {
     [XmlType("TileType")]
-    public class TileType : EditorComponentBase, IPostDeserializable
+    public class TileType : TileDataBase
     {
-        [XmlAttribute("Name")]
-        public string Name
-        {
-            get
-            {
-                return m_name;
-            }
-            set
-            {
-                m_name = value;
-                NotifyPropertyChanged("Name");
-            }
-        }
-
-        [XmlIgnore()]
-        public SolidColorBrush ColorBrush
-        {
-            get
-            {
-                return new SolidColorBrush(m_tileColor);
-            }
-        }
-
-        [XmlElement("TileColor")]
-        public Color TileColor
-        {
-            get
-            {
-                return m_tileColor;
-            }
-            set
-            {
-                m_tileColor = value;
-                NotifyPropertyChanged("TileColor");
-                NotifyPropertyChanged("ColorBrush");
-            }
-        }
-
         [XmlAttribute("Avoidance")]
         public double Avoidance
         {
@@ -191,14 +153,6 @@ namespace HubrisEditor.GameData
             }
         }
 
-        public void PostDeserialize(ProjectManager sender)
-        {
-            m_manager = sender;
-        }
-
-        private ProjectManager m_manager;
-        private Color m_tileColor;
-        private string m_name;
         private double m_avoidance;
         private double m_resistance;
         private double m_defense;

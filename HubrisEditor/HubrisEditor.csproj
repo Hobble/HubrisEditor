@@ -57,11 +57,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Interfaces.cs" />
+    <Compile Include="Core\TileDataBase.cs" />
     <Compile Include="EffectLibrary\BlueRange.cs" />
     <Compile Include="EffectLibrary\GreenRange.cs" />
     <Compile Include="EffectLibrary\HueField.cs" />
     <Compile Include="EffectLibrary\RedRange.cs" />
     <Compile Include="EffectLibrary\SVField.cs" />
+    <Compile Include="GameData\TileContent.cs" />
     <Compile Include="GameData\TileSlot.cs" />
     <Compile Include="GameData\TileType.cs" />
     <Compile Include="GameData\TileUnitPlacement.cs" />
