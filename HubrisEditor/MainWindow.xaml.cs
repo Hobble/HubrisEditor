@@ -310,7 +310,48 @@ namespace HubrisEditor
 
         private void GenerateMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            GenerateWindow window = new GenerateWindow(m_projectManager.CurrentCampaign);
+            window.ShowDialog();
+            if (!window.DialogResult == true)
+            {
+                return;
+            }
+            var tiles = SlotGrid.SelectedTiles;
 
+            int first;
+            int second;
+            int third;
+
+            bool success = int.TryParse(window.FirstTextBox.Text, out first);
+            success &= int.TryParse(window.SecondTextBox.Text, out second);
+            success &= int.TryParse(window.ThirdTextBox.Text, out third);
+            success &= (window.FirstComboBox.SelectedItem != null) && (window.SecondComboBox.SelectedItem != null) && (window.ThirdComboBox.SelectedItem != null);
+
+            if (!success)
+            {
+                return;
+            }
+
+            foreach (var tile in tiles)
+            {
+                int random = m_random.Next(first + second + third);
+                if (random <= first)
+                {
+                    tile.TileTypeKey = (window.FirstComboBox.SelectedItem as TileType).Name;
+                }
+                else if (random <= (first + second))
+                {
+                    tile.TileTypeKey = (window.SecondComboBox.SelectedItem as TileType).Name;
+                }
+                else
+                {
+                    tile.TileTypeKey = (window.ThirdComboBox.SelectedItem as TileType).Name;
+                }
+            }
         }
 
         private Random m_random;
