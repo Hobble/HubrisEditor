@@ -270,6 +270,49 @@ namespace HubrisEditor
             }
         }
 
+        private void UpButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ScenariosListBox.SelectedItem != null)
+            {
+                if (ScenariosListBox.SelectedIndex == 0)
+                {
+                    return;
+                }
+                Scenario scenario = ScenariosListBox.SelectedItem as Scenario;
+                int index = ScenariosListBox.SelectedIndex - 1;
+                m_projectManager.CurrentCampaign.Scenarios.Move(ScenariosListBox.SelectedIndex, index);
+            }
+        }
+
+        private void DownButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ScenariosListBox.SelectedItem != null)
+            {
+                if (ScenariosListBox.SelectedIndex == m_projectManager.CurrentCampaign.Scenarios.Count - 1)
+                {
+                    return;
+                }
+                Scenario scenario = ScenariosListBox.SelectedItem as Scenario;
+                int index = ScenariosListBox.SelectedIndex + 1;
+                m_projectManager.CurrentCampaign.Scenarios.Move(ScenariosListBox.SelectedIndex, index);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ScenariosListBox.SelectedItem != null)
+            {
+                Scenario scenario = ScenariosListBox.SelectedItem as Scenario;
+                m_projectManager.CurrentCampaign.Scenarios.Remove(scenario);
+                ScenariosListBox.SelectedIndex = 0;
+            }
+        }
+
+        private void GenerateMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private Random m_random;
         private ProjectManager m_projectManager;
     }

@@ -77,6 +77,9 @@
     <Compile Include="Xaml\Windows\ColorSwatch.xaml.cs">
       <DependentUpon>ColorSwatch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml\Windows\GenerateWindow.xaml.cs">
+      <DependentUpon>GenerateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,10 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Xaml\Windows\GenerateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Xaml\Windows\ReplaceTilesWindow.xaml">
       <SubType>Designer</SubType>

@@ -48,6 +48,7 @@
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Replace Tiles" Click="ReplaceTilesMenuItem_Click"/>
+                <MenuItem Header="Generate Tiles" Click="GenerateMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="View"/>
             <MenuItem Header="Project">
@@ -81,11 +82,17 @@
                     <TabItem Header="Scenarios">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="ScenariosListBox" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" Grid.Row="0"/>
-                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=ScenariosListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
+                                <Button Margin="5, 0, 0, 0" Click="UpButton_Click">Move Up</Button>
+                                <Button Margin="5, 0, 0, 0" Click="DownButton_Click">Move Down</Button>
+                                <Button Margin="5, 0, 0, 0" Click="DeleteButton_Click">Delete</Button>
+                            </StackPanel>
+                            <ListBox Grid.Row="1" x:Name="ScenariosListBox" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}"/>
+                            <StackPanel Grid.Row="2" Orientation="Vertical" DataContext="{Binding ElementName=ScenariosListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 <StackPanel.Style>
                                     <Style TargetType="{x:Type StackPanel}">
                                         <Style.Triggers>
