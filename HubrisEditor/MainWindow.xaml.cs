@@ -354,6 +354,17 @@ namespace HubrisEditor
             }
         }
 
+        private void AddAbilityMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            Ability ability = new Ability() { Name = "New Ability " + m_random.Next(100000).ToString() };
+            ability.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.Abilities.Add(ability);
+        }
+
         private Random m_random;
         private ProjectManager m_projectManager;
     }
