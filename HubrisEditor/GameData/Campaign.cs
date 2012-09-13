@@ -75,6 +75,14 @@ namespace HubrisEditor.GameData
             {
                 scenario.PostDeserialize(sender);
             }
+            if (Abilities == null)
+            {
+                Abilities = new ObservableCollection<Ability>();
+            }
+            foreach (var ability in Abilities)
+            {
+                ability.PostDeserialize(sender);
+            }
             SortTileTypes();
         }
 

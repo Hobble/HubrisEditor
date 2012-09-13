@@ -181,6 +181,45 @@ namespace HubrisEditor.GameData
         }
 
         [XmlIgnore()]
+        public Ability BaseAbility
+        {
+            get
+            {
+                return m_baseAbility;
+            }
+            private set
+            {
+                m_baseAbility = value;
+                NotifyPropertyChanged("BaseAbility");
+            }
+        }
+
+        [XmlAttribute("BaseAbilityKey")]
+        public string BaseAbilityKey
+        {
+            get
+            {
+                return m_baseAbilityKey;
+            }
+            set
+            {
+                m_baseAbilityKey = value;
+                NotifyPropertyChanged("BaseAbilityKey");
+                if (m_initialized)
+                {
+                    foreach (var ability in m_manager.CurrentCampaign.Abilities)
+                    {
+                        if (ability.Name.Equals(m_baseAbilityKey))
+                        {
+                            BaseAbility = ability;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        [XmlIgnore()]
         public Ability QAbility
         {
             get
@@ -205,17 +244,134 @@ namespace HubrisEditor.GameData
             {
                 m_qAbilityKey = value;
                 NotifyPropertyChanged("QAbilityKey");
-                //if (m_initialized)
-                //{
-                //    foreach (var ability in m_manager.CurrentCampaign.Abilities)
-                //    {
-                //        if (ability.Name.Equals(m_qAbilityKey))
-                //        {
-                //            QAbility = ability;
-                //            break;
-                //        }
-                //    }
-                //}
+                if (m_initialized)
+                {
+                    foreach (var ability in m_manager.CurrentCampaign.Abilities)
+                    {
+                        if (ability.Name.Equals(m_qAbilityKey))
+                        {
+                            QAbility = ability;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        [XmlIgnore()]
+        public Ability WAbility
+        {
+            get
+            {
+                return m_wAbility;
+            }
+            private set
+            {
+                m_wAbility = value;
+                NotifyPropertyChanged("WAbility");
+            }
+        }
+
+        [XmlAttribute("WAbilityKey")]
+        public string WAbilityKey
+        {
+            get
+            {
+                return m_wAbilityKey;
+            }
+            set
+            {
+                m_wAbilityKey = value;
+                NotifyPropertyChanged("WAbilityKey");
+                if (m_initialized)
+                {
+                    foreach (var ability in m_manager.CurrentCampaign.Abilities)
+                    {
+                        if (ability.Name.Equals(m_wAbilityKey))
+                        {
+                            WAbility = ability;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        [XmlIgnore()]
+        public Ability EAbility
+        {
+            get
+            {
+                return m_eAbility;
+            }
+            private set
+            {
+                m_eAbility = value;
+                NotifyPropertyChanged("EAbility");
+            }
+        }
+
+        [XmlAttribute("EAbilityKey")]
+        public string EAbilityKey
+        {
+            get
+            {
+                return m_eAbilityKey;
+            }
+            set
+            {
+                m_eAbilityKey = value;
+                NotifyPropertyChanged("EAbilityKey");
+                if (m_initialized)
+                {
+                    foreach (var ability in m_manager.CurrentCampaign.Abilities)
+                    {
+                        if (ability.Name.Equals(m_eAbilityKey))
+                        {
+                            EAbility = ability;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        [XmlIgnore()]
+        public Ability PassiveAbility
+        {
+            get
+            {
+                return m_passiveAbility;
+            }
+            private set
+            {
+                m_passiveAbility = value;
+                NotifyPropertyChanged("PassiveAbility");
+            }
+        }
+
+        [XmlAttribute("PassiveAbilityKey")]
+        public string PassiveAbilityKey
+        {
+            get
+            {
+                return m_passiveAbilityKey;
+            }
+            set
+            {
+                m_passiveAbilityKey = value;
+                NotifyPropertyChanged("PassiveAbilityKey");
+                if (m_initialized)
+                {
+                    foreach (var ability in m_manager.CurrentCampaign.Abilities)
+                    {
+                        if (ability.Name.Equals(m_passiveAbilityKey))
+                        {
+                            PassiveAbility = ability;
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -223,14 +379,46 @@ namespace HubrisEditor.GameData
         {
             m_manager = sender;
             m_initialized = true;
-            //foreach (var ability in m_manager.CurrentCampaign.Abilities)
-            //{
-            //    if (ability.Name.Equals(m_qAbilityKey))
-            //    {
-            //        QAbility = ability;
-            //        break;
-            //    }
-            //}
+            foreach (var ability in m_manager.CurrentCampaign.Abilities)
+            {
+                if (ability.Name.Equals(m_baseAbilityKey))
+                {
+                    BaseAbility = ability;
+                    break;
+                }
+            }
+            foreach (var ability in m_manager.CurrentCampaign.Abilities)
+            {
+                if (ability.Name.Equals(m_qAbilityKey))
+                {
+                    QAbility = ability;
+                    break;
+                }
+            }
+            foreach (var ability in m_manager.CurrentCampaign.Abilities)
+            {
+                if (ability.Name.Equals(m_wAbilityKey))
+                {
+                    WAbility = ability;
+                    break;
+                }
+            }
+            foreach (var ability in m_manager.CurrentCampaign.Abilities)
+            {
+                if (ability.Name.Equals(m_eAbilityKey))
+                {
+                    EAbility = ability;
+                    break;
+                }
+            }
+            foreach (var ability in m_manager.CurrentCampaign.Abilities)
+            {
+                if (ability.Name.Equals(m_passiveAbilityKey))
+                {
+                    PassiveAbility = ability;
+                    break;
+                }
+            }
         }
 
         private ProjectManager m_manager;
@@ -247,13 +435,15 @@ namespace HubrisEditor.GameData
         private double m_speedRate;
         private double m_baseAccuracy;
         private double m_accuracyRate;
+        private string m_baseAbilityKey;
+        private Ability m_baseAbility;
         private string m_qAbilityKey;
         private Ability m_qAbility;
         private string m_wAbilityKey;
         private Ability m_wAbility;
         private string m_eAbilityKey;
         private Ability m_eAbility;
-        private string m_passiveKey;
-        private Ability m_passive;
+        private string m_passiveAbilityKey;
+        private Ability m_passiveAbility;
     }
 }
