@@ -236,7 +236,7 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-                <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="2" Grid.Column="1" Background="Black"/>
+                <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="2" Grid.Column="1" Background="Transparent"/>
                 <userControls:TileSlotGrid x:Name="SlotGrid" Grid.Column="2" DataContext="{Binding Path=SelectedItem, ElementName=ScenariosListBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
             </Grid>
         </Grid>

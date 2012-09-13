@@ -37,6 +37,7 @@ namespace HubrisEditor.GameData
             m_tileTypes = new ObservableCollection<TileType>();
             m_tileUnitPlacements = new ObservableCollection<TileUnitPlacement>();
             m_tileContents = new ObservableCollection<TileContent>();
+            m_abilities = new ObservableCollection<Ability>();
         }
 
         public void PostDeserialize(ProjectManager sender)
@@ -133,6 +134,20 @@ namespace HubrisEditor.GameData
             }
         }
 
+        [XmlArray("Abilities")]
+        public ObservableCollection<Ability> Abilities
+        {
+            get
+            {
+                return m_abilities;
+            }
+            set
+            {
+                m_abilities = value;
+                NotifyPropertyChanged("Abilities");
+            }
+        }
+
         [XmlAttribute("Name")]
         public string Name
         {
@@ -167,6 +182,7 @@ namespace HubrisEditor.GameData
         private ObservableCollection<TileType> m_tileTypes;
         private ObservableCollection<TileUnitPlacement> m_tileUnitPlacements;
         private ObservableCollection<TileContent> m_tileContents;
+        private ObservableCollection<Ability> m_abilities;
         private string m_name;
         private ProjectManager m_manager;
         #endregion

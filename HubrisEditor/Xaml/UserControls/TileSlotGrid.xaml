@@ -167,22 +167,6 @@
             <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
                 <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Left</TextBlock>
-                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceLeft, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Right</TextBlock>
-                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceRight, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Top</TextBlock>
-                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceTop, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">Fence Bottom</TextBlock>
-                <CheckBox Margin="5, 0, 0, 0" VerticalAlignment="Center" IsChecked="{Binding Path=FenceBottom, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

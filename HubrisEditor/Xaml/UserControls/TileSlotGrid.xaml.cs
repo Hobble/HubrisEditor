@@ -44,54 +44,56 @@ namespace HubrisEditor.Xaml.UserControls
 
         private void Item_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            TileSlot slot = (sender as ListBoxItem).DataContext as TileSlot;
-            if (e.Key == Key.P)
+            foreach (var slot in m_selection)
             {
-                slot.SetTileToCurrentlySelected();
-            }
-            if (e.Key == Key.U)
-            {
-                slot.SetPlacementToCurrentlySelected();
-            }
-            if (e.Key == Key.C)
-            {
-                slot.SetContentToCurrentlySelected();
-            }
-            else if (e.Key == Key.D0)
-            {
-                slot.TileElevation = 0;
-            }
-            else if (e.Key == Key.D1)
-            {
-                slot.TileElevation = 1;
-            }
-            else if (e.Key == Key.D2)
-            {
-                slot.TileElevation = 2;
-            }
-            else if (e.Key == Key.D3)
-            {
-                slot.TileElevation = 3;
-            }
-            else if (e.Key == Key.D4)
-            {
-                slot.TileElevation = 4;
-            }
-            else if (e.Key == Key.D5)
-            {
-                slot.TileElevation = 5;
-            }
-            else if (e.Key == Key.D6)
-            {
-                slot.TileElevation = 6;
-            }
-            else if (e.Key == Key.D7)
-            {
-                slot.TileElevation = 7;
-            }
-            else if (e.Key == Key.D8)
-            {
-                slot.TileElevation = 8;
+                if (e.Key == Key.P)
+                {
+                    slot.SetTileToCurrentlySelected();
+                }
+                if (e.Key == Key.U)
+                {
+                    slot.SetPlacementToCurrentlySelected();
+                }
+                if (e.Key == Key.C)
+                {
+                    slot.SetContentToCurrentlySelected();
+                }
+                else if (e.Key == Key.D0)
+                {
+                    slot.TileElevation = 0;
+                }
+                else if (e.Key == Key.D1)
+                {
+                    slot.TileElevation = 1;
+                }
+                else if (e.Key == Key.D2)
+                {
+                    slot.TileElevation = 2;
+                }
+                else if (e.Key == Key.D3)
+                {
+                    slot.TileElevation = 3;
+                }
+                else if (e.Key == Key.D4)
+                {
+                    slot.TileElevation = 4;
+                }
+                else if (e.Key == Key.D5)
+                {
+                    slot.TileElevation = 5;
+                }
+                else if (e.Key == Key.D6)
+                {
+                    slot.TileElevation = 6;
+                }
+                else if (e.Key == Key.D7)
+                {
+                    slot.TileElevation = 7;
+                }
+                else if (e.Key == Key.D8)
+                {
+                    slot.TileElevation = 8;
+                }
             }
         }
 
