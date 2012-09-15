@@ -177,6 +177,20 @@
                             </ListBox> 
                         </controls:PanZoomHost>
                     </ScrollViewer>
+                    <Canvas Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" IsHitTestVisible="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">
+                        <Canvas.Style>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grab.cur"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsPanning, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grabbing.cur"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                         <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
                             <Rectangle.Fill>
@@ -215,6 +229,20 @@
                             </ListBox>
                         </controls:PanZoomHost>
                     </ScrollViewer>
+                    <Canvas Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" IsHitTestVisible="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">
+                        <Canvas.Style>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grab.cur"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsPanning, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grabbing.cur"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                         <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
                             <Rectangle.Fill>
@@ -253,6 +281,20 @@
                             </ListBox>
                         </controls:PanZoomHost>
                     </ScrollViewer>
+                    <Canvas Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" IsHitTestVisible="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">
+                        <Canvas.Style>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grab.cur"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsPanning, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grabbing.cur"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                         <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
                             <Rectangle.Fill>

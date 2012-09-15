@@ -255,7 +255,7 @@
                                 </StackPanel.Style>
                                 <StackPanel Orientation="Vertical" Margin="0, 5, 0, 0">
                                     <TextBlock VerticalAlignment="Center">Description</TextBlock>
-                                    <TextBox TextWrapping="Wrap" Height="300" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                    <TextBox TextWrapping="Wrap" Height="300" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SpellCheck.IsEnabled="True"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
