@@ -69,6 +69,8 @@
     <Compile Include="GameData\TileType.cs" />
     <Compile Include="GameData\TileUnitPlacement.cs" />
     <Compile Include="GameData\UnitClass.cs" />
+    <Compile Include="Utility\AnimationHelper.cs" />
+    <Compile Include="Xaml\Controls\PanZoomHost.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />
     <Compile Include="Xaml\UserControls\HSVColorSwatch.xaml.cs">
       <DependentUpon>HSVColorSwatch.xaml</DependentUpon>
