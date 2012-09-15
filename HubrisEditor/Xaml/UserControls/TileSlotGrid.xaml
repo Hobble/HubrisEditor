@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:HubrisEditor.Xaml.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" DataContextChanged="UserControl_DataContextChanged">
     <UserControl.Resources>
@@ -23,7 +24,7 @@
                         <ControlTemplate TargetType="{x:Type ListBox}">
                             <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="true">
                                 <ScrollViewer Focusable="false" Padding="0">
-                                    <ItemsPresenter x:Name="ItemsPresenter" Tag="{TemplateBinding Name}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Loaded="TilesListBox_Loaded"/>
+                                    <ItemsPresenter x:Name="ItemsPresenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Loaded="TilesListBox_Loaded"/>
                                 </ScrollViewer>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -43,7 +44,6 @@
             <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusBackground" Color="#FF00AE42"/>
             <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusForeground" Color="Black"/>
             <Style x:Key="TileSlotListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
-                <EventSetter Event="PreviewKeyDown" Handler="Item_PreviewKeyDown"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                 <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -107,66 +107,173 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
         <TabControl x:Name="ViewsTabControl">
             <TabItem Header="Tile Type">
-                <ListBox x:Name="TilesListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}" SelectionMode="Extended" SelectionChanged="TilesListBox_SelectionChanged">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" PreviewKeyDown="ScrollViewer_PreviewKeyDown" PreviewKeyUp="ScrollViewer_PreviewKeyUp">
+                        <controls:PanZoomHost ContentScale="{Binding Path=Scale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetX="{Binding Path=OffsetX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetY="{Binding Path=OffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                            <ListBox x:Name="TilesListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}" SelectionMode="Extended" SelectionChanged="TilesListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </controls:PanZoomHost>
+                    </ScrollViewer>
+                    <Canvas Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" IsHitTestVisible="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp">
+                        <Canvas.Style>
+                            <Style TargetType="{x:Type Canvas}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsPanningSystemActive, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grab.cur"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsPanning, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Value="true">
+                                        <Setter Property="Cursor" Value="/Images/grabbing.cur"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Canvas.Style>
+                    </Canvas>
+                    <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set tile elevation.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Set tile unit placement.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Elevation">
-                <ListBox x:Name="ElevationListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}" SelectionMode="Extended" SelectionChanged="ElevationListBox_SelectionChanged">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                        <controls:PanZoomHost ContentScale="{Binding Path=Scale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetX="{Binding Path=OffsetX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetY="{Binding Path=OffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                            <ListBox x:Name="ElevationListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ElevationTemplate}" SelectionMode="Extended" SelectionChanged="ElevationListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox> 
+                        </controls:PanZoomHost>
+                    </ScrollViewer>
+                    <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set tile elevation.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Set tile unit placement.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Unit Placement">
-                <ListBox x:Name="UnitPlacementListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=UnitPlacementTemplate}" SelectionMode="Extended" SelectionChanged="UnitPlacementListBox_SelectionChanged">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                        <controls:PanZoomHost ContentScale="{Binding Path=Scale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetX="{Binding Path=OffsetX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetY="{Binding Path=OffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                            <ListBox x:Name="UnitPlacementListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=UnitPlacementTemplate}" SelectionMode="Extended" SelectionChanged="UnitPlacementListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </controls:PanZoomHost>
+                    </ScrollViewer>
+                    <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set tile elevation.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Set tile unit placement.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Tile Content">
-                <ListBox x:Name="TileContentListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}" SelectionMode="Extended" SelectionChanged="TileContentListBox_SelectionChanged">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                        <controls:PanZoomHost ContentScale="{Binding Path=Scale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetX="{Binding Path=OffsetX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetY="{Binding Path=OffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                            <ListBox x:Name="TileContentListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileContentTemplate}" SelectionMode="Extended" SelectionChanged="TileContentListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" MaxWidth="{Binding Path=TileSlotGridWidth, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </controls:PanZoomHost>
+                    </ScrollViewer>
+                    <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set tile elevation.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Set tile unit placement.</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
+                            <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
-        <StackPanel Grid.Column="1" Background="White" Width="200" x:Name="AttributesStackPanel"  DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-            <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
-                <Rectangle.Fill>
-                    <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">P: Paint selected tile slot.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">0-8: Set tile elevation.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">U: Set tile unit placement.</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
-                <TextBlock Margin="5, 0, 0, 0" VerticalAlignment="Center">C: Set tile content.</TextBlock>
-            </StackPanel>
-        </StackPanel>
     </Grid>
 </UserControl>

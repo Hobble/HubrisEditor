@@ -1,4 +1,5 @@
 ﻿using HubrisEditor.GameData;
+using HubrisEditor.Xaml.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,58 +43,132 @@ namespace HubrisEditor.Xaml.UserControls
             }
         }
 
-        private void Item_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            foreach (var slot in m_selection)
+            ScrollViewer senderCast = sender as ScrollViewer;
+            PanZoomHost contentCast = senderCast.Content as PanZoomHost;
+            ListBox child = contentCast.Content as ListBox;
+            e.Handled = true;
+            if (e.Delta > 0)
             {
-                if (e.Key == Key.P)
+                Point curContentMousePoint = e.GetPosition(child);
+                ZoomIn(curContentMousePoint, contentCast);
+            }
+            else if (e.Delta < 0)
+            {
+                Point curContentMousePoint = e.GetPosition(child);
+                ZoomOut(curContentMousePoint, contentCast);
+            }
+        }
+
+        private void ZoomOut(Point contentZoomCenter, PanZoomHost host)
+        {
+            host.ZoomAboutPoint(host.ContentScale - 0.1, contentZoomCenter);
+        }
+
+        private void ZoomIn(Point contentZoomCenter, PanZoomHost host)
+        {
+            host.ZoomAboutPoint(host.ContentScale + 0.1, contentZoomCenter);
+        }
+
+        private void ScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                IsPanningSystemActive = true;
+            }
+            else
+            {
+                foreach (var slot in m_selection)
                 {
-                    slot.SetTileToCurrentlySelected();
+                    if (e.Key == Key.P)
+                    {
+                        slot.SetTileToCurrentlySelected();
+                    }
+                    if (e.Key == Key.U)
+                    {
+                        slot.SetPlacementToCurrentlySelected();
+                    }
+                    if (e.Key == Key.C)
+                    {
+                        slot.SetContentToCurrentlySelected();
+                    }
+                    else if (e.Key == Key.D0)
+                    {
+                        slot.TileElevation = 0;
+                    }
+                    else if (e.Key == Key.D1)
+                    {
+                        slot.TileElevation = 1;
+                    }
+                    else if (e.Key == Key.D2)
+                    {
+                        slot.TileElevation = 2;
+                    }
+                    else if (e.Key == Key.D3)
+                    {
+                        slot.TileElevation = 3;
+                    }
+                    else if (e.Key == Key.D4)
+                    {
+                        slot.TileElevation = 4;
+                    }
+                    else if (e.Key == Key.D5)
+                    {
+                        slot.TileElevation = 5;
+                    }
+                    else if (e.Key == Key.D6)
+                    {
+                        slot.TileElevation = 6;
+                    }
+                    else if (e.Key == Key.D7)
+                    {
+                        slot.TileElevation = 7;
+                    }
+                    else if (e.Key == Key.D8)
+                    {
+                        slot.TileElevation = 8;
+                    }
                 }
-                if (e.Key == Key.U)
-                {
-                    slot.SetPlacementToCurrentlySelected();
-                }
-                if (e.Key == Key.C)
-                {
-                    slot.SetContentToCurrentlySelected();
-                }
-                else if (e.Key == Key.D0)
-                {
-                    slot.TileElevation = 0;
-                }
-                else if (e.Key == Key.D1)
-                {
-                    slot.TileElevation = 1;
-                }
-                else if (e.Key == Key.D2)
-                {
-                    slot.TileElevation = 2;
-                }
-                else if (e.Key == Key.D3)
-                {
-                    slot.TileElevation = 3;
-                }
-                else if (e.Key == Key.D4)
-                {
-                    slot.TileElevation = 4;
-                }
-                else if (e.Key == Key.D5)
-                {
-                    slot.TileElevation = 5;
-                }
-                else if (e.Key == Key.D6)
-                {
-                    slot.TileElevation = 6;
-                }
-                else if (e.Key == Key.D7)
-                {
-                    slot.TileElevation = 7;
-                }
-                else if (e.Key == Key.D8)
-                {
-                    slot.TileElevation = 8;
-                }
+            }
+        }
+
+        private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsPanningSystemActive)
+            {
+                m_originalMousePosition = e.GetPosition(sender as IInputElement);
+                Mouse.Capture(sender as IInputElement);
+                IsPanning = true;
+            }
+        }
+
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsPanning)
+            {
+                Point currentMousePosition = e.GetPosition(sender as IInputElement);
+                double deltax = currentMousePosition.X - m_originalMousePosition.X;
+                double deltay = currentMousePosition.Y - m_originalMousePosition.Y;
+                m_originalMousePosition = currentMousePosition;
+                OffsetX -= deltax;
+                OffsetY -= deltay;
+            }
+        }
+
+        private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            IsPanning = false;
+            Mouse.Capture(null);
+        }
+
+        private void ScrollViewer_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                IsPanningSystemActive = false;
+                IsPanning = false;
+                Mouse.Capture(null);
             }
         }
 
@@ -199,6 +274,7 @@ namespace HubrisEditor.Xaml.UserControls
 
         private void TilesListBox_Loaded(object sender, RoutedEventArgs e)
         {
+            TileTypeItemsPresenter = null;
             TileTypeItemsPresenter = sender as ItemsPresenter;
         }
 
@@ -220,7 +296,53 @@ namespace HubrisEditor.Xaml.UserControls
         // Using a DependencyProperty as the backing store for RatioHeight.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RatioHeightProperty = DependencyProperty.Register("RatioHeight", typeof(double), typeof(TileSlotGrid), new PropertyMetadata(200.0));
 
+        public bool IsPanningSystemActive
+        {
+            get { return (bool)GetValue(IsPanningSystemActiveProperty); }
+            set { SetValue(IsPanningSystemActiveProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsPanningSystemActive.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsPanningSystemActiveProperty = DependencyProperty.Register("IsPanningSystemActive", typeof(bool), typeof(TileSlotGrid), new PropertyMetadata(false));
+
+        public bool IsPanning
+        {
+            get { return (bool)GetValue(IsPanningProperty); }
+            set { SetValue(IsPanningProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsPanning.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsPanningProperty = DependencyProperty.Register("IsPanning", typeof(bool), typeof(TileSlotGrid), new PropertyMetadata(false));
+
+        public double OffsetX
+        {
+            get { return (double)GetValue(OffsetXProperty); }
+            set { SetValue(OffsetXProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OffsetX.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OffsetXProperty = DependencyProperty.Register("OffsetX", typeof(double), typeof(TileSlotGrid), new PropertyMetadata(0.0));
+
+        public double OffsetY
+        {
+            get { return (double)GetValue(OffsetYProperty); }
+            set { SetValue(OffsetYProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OffsetY.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OffsetYProperty = DependencyProperty.Register("OffsetY", typeof(double), typeof(TileSlotGrid), new PropertyMetadata(0.0));
+
+        public double Scale
+        {
+            get { return (double)GetValue(ScaleProperty); }
+            set { SetValue(ScaleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Scale.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ScaleProperty = DependencyProperty.Register("Scale", typeof(double), typeof(TileSlotGrid), new PropertyMetadata(1.0));
+
         private List<TileSlot> m_selection;
         private bool m_forceSelectionChanges;
+        private Point m_originalMousePosition;
     }
 }
