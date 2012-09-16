@@ -86,7 +86,7 @@
                     <fx:SVField Hue="{Binding Path=Hue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
                 </Canvas.Effect>
             </Canvas>
-            <Canvas x:Name="SVThumbCanvas" Background="Transparent" PreviewMouseDown="SVThumbCanvas_PreviewMouseDown">
+            <Canvas x:Name="SVThumbCanvas" Background="Transparent" PreviewMouseDown="SVThumbCanvas_PreviewMouseDown" ClipToBounds="True">
                 <Thumb x:Name="SVThumb" DragDelta="SVThumb_DragDelta">
                     <Canvas.Left>
                         <MultiBinding Converter="{StaticResource ResourceKey=UnitDoubleToCanvasPositionMultiValueConverter}" UpdateSourceTrigger="PropertyChanged" ConverterParameter="horizontal" Mode="OneWay">
@@ -120,7 +120,7 @@
                     <fx:HueField/>
                 </Canvas.Effect>
             </Canvas>
-            <Canvas Background="Transparent" Grid.Column="2" x:Name="HueThumbCanvas" PreviewMouseDown="HueThumbCanvas_PreviewMouseDown">
+            <Canvas Background="Transparent" Grid.Column="2" x:Name="HueThumbCanvas" PreviewMouseDown="HueThumbCanvas_PreviewMouseDown" ClipToBounds="True">
                 <Thumb x:Name="HueThumb" DragDelta="HueThumb_DragDelta">
                     <Canvas.Top>
                         <MultiBinding Converter="{StaticResource ResourceKey=HueToCanvasPositionMultiValueConverter}" ConverterParameter="vertical" UpdateSourceTrigger="PropertyChanged" Mode="OneWay">
@@ -177,7 +177,7 @@
                         </fx:RedRange>
                     </Canvas.Effect>
                 </Canvas>
-                <Canvas Background="Transparent" Grid.Row="1" x:Name="RedThumbCanvas" PreviewMouseDown="RedThumbCanvas_PreviewMouseDown">
+                <Canvas Background="Transparent" Grid.Row="1" x:Name="RedThumbCanvas" PreviewMouseDown="RedThumbCanvas_PreviewMouseDown" ClipToBounds="True">
                     <Thumb x:Name="RedThumb" DragDelta="RedThumb_DragDelta">
                         <Canvas.Left>
                             <MultiBinding Converter="{StaticResource ResourceKey=ByteToCanvasPositionMultiValueConverter}" ConverterParameter="horizontal" UpdateSourceTrigger="PropertyChanged" Mode="OneWay">
@@ -226,7 +226,7 @@
                         </fx:GreenRange>
                     </Canvas.Effect>
                 </Canvas>
-                <Canvas Background="Transparent" Grid.Row="1" x:Name="GreenThumbCanvas" PreviewMouseDown="GreenThumbCanvas_PreviewMouseDown">
+                <Canvas Background="Transparent" Grid.Row="1" x:Name="GreenThumbCanvas" PreviewMouseDown="GreenThumbCanvas_PreviewMouseDown" ClipToBounds="True">
                     <Thumb x:Name="GreenThumb" DragDelta="GreenThumb_DragDelta">
                         <Canvas.Left>
                             <MultiBinding Converter="{StaticResource ResourceKey=ByteToCanvasPositionMultiValueConverter}" ConverterParameter="horizontal" UpdateSourceTrigger="PropertyChanged" Mode="OneWay">
@@ -275,7 +275,7 @@
                         </fx:BlueRange>
                     </Canvas.Effect>
                 </Canvas>
-                <Canvas Background="Transparent" Grid.Row="1" x:Name="BlueThumbCanvas" PreviewMouseDown="BlueThumbCanvas_PreviewMouseDown">
+                <Canvas Background="Transparent" Grid.Row="1" x:Name="BlueThumbCanvas" PreviewMouseDown="BlueThumbCanvas_PreviewMouseDown" ClipToBounds="True">
                     <Thumb x:Name="BlueThumb" DragDelta="BlueThumb_DragDelta">
                         <Canvas.Left>
                             <MultiBinding Converter="{StaticResource ResourceKey=ByteToCanvasPositionMultiValueConverter}" ConverterParameter="horizontal" UpdateSourceTrigger="PropertyChanged" Mode="OneWay">
@@ -321,7 +321,7 @@
                         </LinearGradientBrush>
                     </Canvas.OpacityMask>
                 </Canvas>
-                <Canvas Background="Transparent" Grid.Row="1" x:Name="AlphaThumbCanvas" PreviewMouseDown="AlphaThumbCanvas_PreviewMouseDown">
+                <Canvas Background="Transparent" Grid.Row="1" x:Name="AlphaThumbCanvas" PreviewMouseDown="AlphaThumbCanvas_PreviewMouseDown" ClipToBounds="True">
                     <Thumb x:Name="AlphaThumb" DragDelta="AlphaThumb_DragDelta">
                         <Canvas.Left>
                             <MultiBinding Converter="{StaticResource ResourceKey=ByteToCanvasPositionMultiValueConverter}" ConverterParameter="horizontal" UpdateSourceTrigger="PropertyChanged" Mode="OneWay">

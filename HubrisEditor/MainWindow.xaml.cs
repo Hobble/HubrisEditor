@@ -270,7 +270,7 @@ namespace HubrisEditor
             }
         }
 
-        private void UpButton_Click(object sender, RoutedEventArgs e)
+        private void UpScenarioButton_Click(object sender, RoutedEventArgs e)
         {
             if (ScenariosListBox.SelectedItem != null)
             {
@@ -284,7 +284,7 @@ namespace HubrisEditor
             }
         }
 
-        private void DownButton_Click(object sender, RoutedEventArgs e)
+        private void DownScenarioButton_Click(object sender, RoutedEventArgs e)
         {
             if (ScenariosListBox.SelectedItem != null)
             {
@@ -298,7 +298,7 @@ namespace HubrisEditor
             }
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteScenarioButton_Click(object sender, RoutedEventArgs e)
         {
             if (ScenariosListBox.SelectedItem != null)
             {
@@ -306,6 +306,17 @@ namespace HubrisEditor
                 m_projectManager.CurrentCampaign.Scenarios.Remove(scenario);
                 ScenariosListBox.SelectedIndex = 0;
             }
+        }
+
+        private void AddScenarioButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            Scenario scenario = new Scenario() { Name = "New Scenario " + m_random.Next(100000).ToString() };
+            scenario.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.Scenarios.Add(scenario);
         }
 
         private void GenerateMenuItem_Click(object sender, RoutedEventArgs e)
@@ -351,6 +362,69 @@ namespace HubrisEditor
                 {
                     tile.TileTypeKey = (window.ThirdComboBox.SelectedItem as TileType).Name;
                 }
+            }
+        }
+
+        private void AddTileTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            TileType type = new TileType() { Name = "New Tile Type " + m_random.Next(100000).ToString() };
+            type.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.TileTypes.Add(type);
+        }
+
+        private void DeleteTileTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TileTypesListBox.SelectedItem != null)
+            {
+                TileType type = TileTypesListBox.SelectedItem as TileType;
+                m_projectManager.CurrentCampaign.TileTypes.Remove(type);
+                TileTypesListBox.SelectedIndex = 0;
+            }
+        }
+
+        private void AddUnitPlacementButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            TileUnitPlacement unitPlacement = new TileUnitPlacement() { Name = "New Unit Placement " + m_random.Next(100000).ToString() };
+            unitPlacement.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.TileUnitPlacements.Add(unitPlacement);
+        }
+
+        private void DeleteUnitPlacementButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UnitPlacementListBox.SelectedItem != null)
+            {
+                TileUnitPlacement tup = UnitPlacementListBox.SelectedItem as TileUnitPlacement;
+                m_projectManager.CurrentCampaign.TileUnitPlacements.Remove(tup);
+                UnitPlacementListBox.SelectedIndex = 0;
+            }
+        }
+
+        private void AddTileContentButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_random == null)
+            {
+                m_random = new Random();
+            }
+            TileContent content = new TileContent() { Name = "New Tile Content " + m_random.Next(100000).ToString() };
+            content.PostDeserialize(m_projectManager);
+            m_projectManager.CurrentCampaign.TileContents.Add(content);
+        }
+
+        private void DeleteTileContentButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TileContentListBox.SelectedItem != null)
+            {
+                TileContent content = TileContentListBox.SelectedItem as TileContent;
+                m_projectManager.CurrentCampaign.TileContents.Remove(content);
+                TileContentListBox.SelectedIndex = 0;
             }
         }
 

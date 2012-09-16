@@ -86,11 +86,18 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
-                                <Button Margin="5, 0, 0, 0" Click="UpButton_Click">Move Up</Button>
-                                <Button Margin="5, 0, 0, 0" Click="DownButton_Click">Move Down</Button>
-                                <Button Margin="5, 0, 0, 0" Click="DeleteButton_Click">Delete</Button>
-                            </StackPanel>
+                            <Grid Width="180" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="2.5, 5, 2.5, 5" Click="UpScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Up</Button>
+                                <Button Grid.Column="1" Margin="2.5, 5, 2.5, 5" Click="DownScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Down</Button>
+                                <Button Grid.Column="2" Margin="2.5, 5, 2.5, 5" Click="AddScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Add</Button>
+                                <Button Grid.Column="3" Margin="2.5, 5, 2.5, 5" Click="DeleteScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Del</Button>
+                            </Grid>
                             <ListBox Grid.Row="1" x:Name="ScenariosListBox" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Scenarios, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AlternationCount="2" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}"/>
                             <StackPanel Grid.Row="2" Orientation="Vertical" DataContext="{Binding ElementName=ScenariosListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 <StackPanel.Style>
@@ -123,11 +130,22 @@
                     <TabItem Header="Tile Types">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="TileTypesListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileTypes, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultTile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=TileTypesListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid Width="180" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="2.5, 5, 2.5, 5" Click="AddTileTypeButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Add</Button>
+                                <Button Grid.Column="1" Margin="2.5, 5, 2.5, 5" Click="DeleteTileTypeButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Del</Button>
+                            </Grid>
+                            <ListBox Grid.Row="1" x:Name="TileTypesListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileTypes, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultTile, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <StackPanel Grid.Row="2" Orientation="Vertical" DataContext="{Binding ElementName=TileTypesListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 <StackPanel.Style>
                                     <Style TargetType="{x:Type StackPanel}">
                                         <Style.Triggers>
@@ -188,11 +206,22 @@
                     <TabItem Header="Unit Placement">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="UnitPlacementListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileUnitPlacements, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultUnitPlacement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=UnitPlacementListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid Width="180" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="2.5, 5, 2.5, 5" Click="AddScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Add</Button>
+                                <Button Grid.Column="1" Margin="2.5, 5, 2.5, 5" Click="DeleteScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Del</Button>
+                            </Grid>
+                            <ListBox Grid.Row="1" x:Name="UnitPlacementListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileUnitPlacements, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultUnitPlacement, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <StackPanel Grid.Row="2" Orientation="Vertical" DataContext="{Binding ElementName=UnitPlacementListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 <StackPanel.Style>
                                     <Style TargetType="{x:Type StackPanel}">
                                         <Style.Triggers>
@@ -213,11 +242,22 @@
                     <TabItem Header="Tile Contents">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="TileContentListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileContents, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultTileContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=TileContentListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                            <Grid Width="180" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Margin="2.5, 5, 2.5, 5" Click="AddScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Add</Button>
+                                <Button Grid.Column="1" Margin="2.5, 5, 2.5, 5" Click="DeleteScenarioButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Del</Button>
+                            </Grid>
+                            <ListBox Grid.Row="1" x:Name="TileContentListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileTypeListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.TileContents, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" SelectedItem="{Binding Path=DefaultTileContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <StackPanel Grid.Row="2" Orientation="Vertical" DataContext="{Binding ElementName=TileContentListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                 <StackPanel.Style>
                                     <Style TargetType="{x:Type StackPanel}">
                                         <Style.Triggers>
