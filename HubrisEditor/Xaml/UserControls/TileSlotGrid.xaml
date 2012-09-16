@@ -24,7 +24,7 @@
                         <ControlTemplate TargetType="{x:Type ListBox}">
                             <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Padding="0" SnapsToDevicePixels="true">
                                 <ScrollViewer Focusable="false" Padding="0">
-                                    <ItemsPresenter x:Name="ItemsPresenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Loaded="TilesListBox_Loaded"/>
+                                    <ItemsPresenter x:Name="ItemsPresenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                 </ScrollViewer>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -140,9 +140,9 @@
                         </Canvas.Style>
                     </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3" x:Name="TileTypeRect">
                             <Rectangle.Fill>
-                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                                <VisualBrush Visual="{Binding ElementName=TilesListBox}"/>
                             </Rectangle.Fill>
                         </Rectangle>
                         <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
@@ -192,9 +192,9 @@
                         </Canvas.Style>
                     </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3" x:Name="ElevationRect">
                             <Rectangle.Fill>
-                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                                <VisualBrush Visual="{Binding ElementName=ElevationListBox}"/>
                             </Rectangle.Fill>
                         </Rectangle>
                         <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
@@ -244,9 +244,9 @@
                         </Canvas.Style>
                     </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3" x:Name="UnitPlacementRect">
                             <Rectangle.Fill>
-                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                                <VisualBrush Visual="{Binding ElementName=UnitPlacementListBox}"/>
                             </Rectangle.Fill>
                         </Rectangle>
                         <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">
@@ -296,9 +296,9 @@
                         </Canvas.Style>
                     </Canvas>
                     <StackPanel Grid.Column="1" Background="White" Width="200" DataContext="{Binding Path=SelectedTile, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
-                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3">
+                        <Rectangle Width="200" Height="{Binding Path=RatioHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Stroke="Black" StrokeThickness="3" x:Name="TileContentRect">
                             <Rectangle.Fill>
-                                <VisualBrush Visual="{Binding Path=TileTypeItemsPresenter, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"/>
+                                <VisualBrush Visual="{Binding ElementName=TileContentListBox}"/>
                             </Rectangle.Fill>
                         </Rectangle>
                         <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 0">

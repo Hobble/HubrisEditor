@@ -56,7 +56,6 @@
                 <MenuItem Header="Add Tile Type" Click="AddTileTypeMenuItem_Click"/>
                 <MenuItem Header="Add Unit Placement" Click="AddUnitPlacementMenuItem_Click"/>
                 <MenuItem Header="Add Content" Click="AddTileContentMenuItem_Click"/>
-                <MenuItem Header="Add Ability" Click="AddAbilityMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Tools"/>
             <MenuItem Header="Window"/>
@@ -236,33 +235,20 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="Abilities">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <ListBox x:Name="AbilitiesListBox" Style="{StaticResource ResourceKey=CommonListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=CommonListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=ScenariosListBoxItemTemplate}" ItemsSource="{Binding Path=CurrentCampaign.Abilities, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                            <StackPanel Grid.Row="1" Orientation="Vertical" DataContext="{Binding ElementName=AbilitiesListBox, Path=SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                                <StackPanel.Style>
-                                    <Style TargetType="{x:Type StackPanel}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=AbilitiesListBox, Path=SelectedIndex, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="-1">
-                                                <Setter Property="Visibility" Value="Hidden"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </StackPanel.Style>
-                                <StackPanel Orientation="Vertical" Margin="0, 5, 0, 0">
-                                    <TextBlock VerticalAlignment="Center">Description</TextBlock>
-                                    <TextBox TextWrapping="Wrap" Height="300" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SpellCheck.IsEnabled="True"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Grid>
-                    </TabItem>
                 </TabControl>
                 <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="2" Grid.Column="1" Background="Transparent"/>
-                <userControls:TileSlotGrid x:Name="SlotGrid" Grid.Column="2" DataContext="{Binding Path=SelectedItem, ElementName=ScenariosListBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                <Grid Grid.Column="2" DataContext="{Binding Path=SelectedItem, ElementName=ScenariosListBox, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Triggers>
+                                <Trigger Property="DataContext" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <userControls:TileSlotGrid x:Name="SlotGrid"/>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

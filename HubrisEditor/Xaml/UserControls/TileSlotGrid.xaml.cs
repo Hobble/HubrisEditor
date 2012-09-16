@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,10 +38,16 @@ namespace HubrisEditor.Xaml.UserControls
 
         private void UserControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (DataContext != null)
+            if (DataContext as Scenario != null)
             {
                 RatioHeight = 200.0 * (DataContext as Scenario).CanvasSpaceHeight / (DataContext as Scenario).CanvasSpaceWidth;
+                (DataContext as Scenario).TilesGenerated += TileSlotGrid_TilesGenerated;
             }
+        }
+
+        private void TileSlotGrid_TilesGenerated(object sender, EventArgs e)
+        {
+            RatioHeight = 200.0 * (DataContext as Scenario).CanvasSpaceHeight / (DataContext as Scenario).CanvasSpaceWidth;
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -151,8 +158,9 @@ namespace HubrisEditor.Xaml.UserControls
                 double deltax = currentMousePosition.X - m_originalMousePosition.X;
                 double deltay = currentMousePosition.Y - m_originalMousePosition.Y;
                 m_originalMousePosition = currentMousePosition;
-                OffsetX -= deltax;
-                OffsetY -= deltay;
+                PanZoomHost host = (((sender as Canvas).Parent as Grid).Children[0] as ScrollViewer).Content as PanZoomHost;
+                OffsetX = Math.Min(Math.Max(OffsetX - deltax, 0.0), host.CoerceWidthMax);
+                OffsetY = Math.Min(Math.Max(OffsetY - deltay, 0.0), host.CoerceHeightMax);
             }
         }
 
@@ -271,21 +279,6 @@ namespace HubrisEditor.Xaml.UserControls
                 return new ReadOnlyCollection<TileSlot>(m_selection);
             }
         }
-
-        private void TilesListBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            TileTypeItemsPresenter = null;
-            TileTypeItemsPresenter = sender as ItemsPresenter;
-        }
-
-        public ItemsPresenter TileTypeItemsPresenter
-        {
-            get { return (ItemsPresenter)GetValue(TileTypeItemsPresenterProperty); }
-            set { SetValue(TileTypeItemsPresenterProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for TileTypeItemsPresenter.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TileTypeItemsPresenterProperty = DependencyProperty.Register("TileTypeItemsPresenter", typeof(ItemsPresenter), typeof(TileSlotGrid), new PropertyMetadata(null));
 
         public double RatioHeight
         {

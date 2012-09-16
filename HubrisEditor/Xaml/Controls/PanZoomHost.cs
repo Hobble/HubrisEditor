@@ -884,6 +884,24 @@ namespace HubrisEditor.Xaml.Controls
         }
         #endregion
 
+        #region Accessors
+        public double CoerceWidthMax
+        {
+            get
+            {
+                return m_unScaledExtent.Width - m_constrainedContentViewportWidth;
+            }
+        }
+
+        public double CoerceHeightMax
+        {
+            get
+            {
+                return m_unScaledExtent.Height - m_constrainedContentViewportHeight;
+            }
+        }
+        #endregion
+
         #region Internal Data Members
         private FrameworkElement m_content = null;
         private ScaleTransform m_contentScaleTransform = null;

@@ -63,12 +63,10 @@
     <Compile Include="EffectLibrary\HueField.cs" />
     <Compile Include="EffectLibrary\RedRange.cs" />
     <Compile Include="EffectLibrary\SVField.cs" />
-    <Compile Include="GameData\Ability.cs" />
     <Compile Include="GameData\TileContent.cs" />
     <Compile Include="GameData\TileSlot.cs" />
     <Compile Include="GameData\TileType.cs" />
     <Compile Include="GameData\TileUnitPlacement.cs" />
-    <Compile Include="GameData\UnitClass.cs" />
     <Compile Include="Utility\AnimationHelper.cs" />
     <Compile Include="Xaml\Controls\PanZoomHost.cs" />
     <Compile Include="Xaml\Controls\ValueEditor.cs" />

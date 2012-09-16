@@ -149,6 +149,7 @@ namespace HubrisEditor.GameData
                 m_tileSlots.Add(slot);
             }
             UpdateOffsets();
+            RaiseTilesGeneratedEvent();
         }
 
         public void UpdateOffsets()
@@ -170,33 +171,17 @@ namespace HubrisEditor.GameData
             }
         }
 
-        public void ExpandWidth(int expandAmount)
+        #region Events
+        public event EventHandler TilesGenerated;
+
+        private void RaiseTilesGeneratedEvent()
         {
-            CanvasSpaceWidth += expandAmount;
-            NotifyPropertyChanged("TileSlotGridHeight");
-            NotifyPropertyChanged("TileSlotGridWidth");
-            TileType defaultTile = m_manager.DefaultTile;
-            if (defaultTile == null)
+            if (TilesGenerated != null)
             {
-                defaultTile = m_manager.CurrentCampaign.TileTypes.FirstOrDefault<TileType>();
-                if (defaultTile == null)
-                {
-                    return;
-                }
+                TilesGenerated(this, EventArgs.Empty);
             }
-            for (int i = 0; i < CanvasSpaceHeight; i++)
-            {
-                int targetIndex = (CanvasSpaceWidth - expandAmount) * (i + 1);
-                for (int j = 0; j < expandAmount; j++)
-                {
-                    TileSlot slot = new TileSlot();
-                    slot.PostDeserialize(m_manager);
-                    slot.TileTypeKey = defaultTile.Name;
-                    m_tileSlots.Insert(targetIndex + j + expandAmount * i, slot);
-                }
-            }
-            UpdateOffsets();
         }
+        #endregion
 
         #region Members
         private ProjectManager m_manager;
