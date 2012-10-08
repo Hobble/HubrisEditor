@@ -428,6 +428,12 @@ namespace HubrisEditor
             }
         }
 
+        private void PerlinMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            PerlinTestWindow window = new PerlinTestWindow();
+            window.Show();
+        }
+
         private Random m_random;
         private ProjectManager m_projectManager;
     }

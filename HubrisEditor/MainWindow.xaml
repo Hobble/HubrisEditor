@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:HubrisEditor.Xaml.Controls"
         xmlns:userControls="clr-namespace:HubrisEditor.Xaml.UserControls"
-        Title="Hubris Map Editor" Height="350" Width="525" WindowState="Maximized">
+        Title="Map Editor" Height="350" Width="525" WindowState="Maximized">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -58,7 +58,9 @@
                 <MenuItem Header="Add Content" Click="AddTileContentMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Tools"/>
-            <MenuItem Header="Window"/>
+            <MenuItem Header="Window">
+                <MenuItem Header="Perlin Noise Test Window" Click="PerlinMenuItem_Click"/>
+            </MenuItem>
             <MenuItem Header="Help"/>
         </Menu>
         <Grid Grid.Row="1">

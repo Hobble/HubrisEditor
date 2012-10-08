@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\Interfaces.cs" />
+    <Compile Include="Core\PerlinNoise.cs" />
     <Compile Include="Core\TileDataBase.cs" />
     <Compile Include="EffectLibrary\BlueRange.cs" />
     <Compile Include="EffectLibrary\GreenRange.cs" />
@@ -85,6 +86,9 @@
     <Compile Include="Xaml\Windows\NewProjectDialog.xaml.cs">
       <DependentUpon>NewProjectDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Xaml\Windows\PerlinTestWindow.xaml.cs">
+      <DependentUpon>PerlinTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Xaml\Windows\ReplaceTilesWindow.xaml.cs">
       <DependentUpon>ReplaceTilesWindow.xaml</DependentUpon>
     </Compile>
@@ -93,6 +97,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Xaml\Windows\GenerateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Xaml\Windows\PerlinTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
