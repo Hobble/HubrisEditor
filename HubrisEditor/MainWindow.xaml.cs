@@ -333,19 +333,15 @@ namespace HubrisEditor
                 return;
             }
 
-            int first;
-            int second;
-
-            bool success = int.TryParse(window.FirstTextBox.Text, out first);
-            success &= int.TryParse(window.SecondTextBox.Text, out second);
-            success &= (window.FirstComboBox.SelectedItem != null) && (window.SecondComboBox.SelectedItem != null);
+            int value = (int)window.MainSlider.Value;
+            bool success = (window.FirstComboBox.SelectedItem != null) && (window.SecondComboBox.SelectedItem != null);
 
             if (!success)
             {
                 return;
             }
 
-            int random = m_random.Next(first + second);
+            int random = m_random.Next();
             PerlinNoise noise = new PerlinNoise(random);
             byte[] pixels = noise.GetPixels(128, 128);
 
@@ -359,7 +355,7 @@ namespace HubrisEditor
                 {
                     TileSlot tile = scenario.TileSlots[i * scenario.CanvasSpaceWidth + j];
                     int point = pixels[((int)(i * ratioy)) * 128 + ((int)(j * ratiox))];
-                    if (point <= first)
+                    if (point <= value)
                     {
                         tile.TileTypeKey = (window.FirstComboBox.SelectedItem as TileType).Name;
                     }
