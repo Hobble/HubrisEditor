@@ -3,6 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Perlin Test Window" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize">
     <Grid>
-        <Image x:Name="MainImage" Height="512" Width="512"/>
+        <Image x:Name="MainImage" Height="256" Width="256"/>
     </Grid>
 </Window>

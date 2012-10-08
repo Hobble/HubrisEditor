@@ -1,4 +1,5 @@
-﻿using HubrisEditor.GameData;
+﻿using HubrisEditor.Core;
+using HubrisEditor.GameData;
 using HubrisEditor.ProjectIO;
 using HubrisEditor.Xaml.Windows;
 using Microsoft.Win32;
@@ -331,36 +332,41 @@ namespace HubrisEditor
             {
                 return;
             }
-            var tiles = SlotGrid.SelectedTiles;
 
             int first;
             int second;
-            int third;
 
             bool success = int.TryParse(window.FirstTextBox.Text, out first);
             success &= int.TryParse(window.SecondTextBox.Text, out second);
-            success &= int.TryParse(window.ThirdTextBox.Text, out third);
-            success &= (window.FirstComboBox.SelectedItem != null) && (window.SecondComboBox.SelectedItem != null) && (window.ThirdComboBox.SelectedItem != null);
+            success &= (window.FirstComboBox.SelectedItem != null) && (window.SecondComboBox.SelectedItem != null);
 
             if (!success)
             {
                 return;
             }
 
-            foreach (var tile in tiles)
+            int random = m_random.Next(first + second);
+            PerlinNoise noise = new PerlinNoise(random);
+            byte[] pixels = noise.GetPixels(128, 128);
+
+            Scenario scenario = ScenariosListBox.SelectedItem as Scenario;
+            double ratiox = 128.0 / scenario.CanvasSpaceWidth;
+            double ratioy = 128.0 / scenario.CanvasSpaceHeight;
+
+            for(int i = 0; i < scenario.CanvasSpaceHeight; i++)
             {
-                int random = m_random.Next(first + second + third);
-                if (random <= first)
+                for (int j = 0; j < scenario.CanvasSpaceWidth; j++)
                 {
-                    tile.TileTypeKey = (window.FirstComboBox.SelectedItem as TileType).Name;
-                }
-                else if (random <= (first + second))
-                {
-                    tile.TileTypeKey = (window.SecondComboBox.SelectedItem as TileType).Name;
-                }
-                else
-                {
-                    tile.TileTypeKey = (window.ThirdComboBox.SelectedItem as TileType).Name;
+                    TileSlot tile = scenario.TileSlots[i * scenario.CanvasSpaceWidth + j];
+                    int point = pixels[((int)(i * ratioy)) * 128 + ((int)(j * ratiox))];
+                    if (point <= first)
+                    {
+                        tile.TileTypeKey = (window.FirstComboBox.SelectedItem as TileType).Name;
+                    }
+                    else
+                    {
+                        tile.TileTypeKey = (window.SecondComboBox.SelectedItem as TileType).Name;
+                    }
                 }
             }
         }

@@ -94,6 +94,72 @@ namespace HubrisEditor.Core
             return x * x * (3 - 2 * x);
         }
 
+        public byte[] GetPixels(int height, int width)
+        {
+            byte[] pixels = new byte[height * width];
+            float[] buffer = new float[height * width];
+            float persistence = 0.5f;
+            float min = float.MaxValue;
+            float max = float.MinValue;
+            float pmin = float.MaxValue;
+            float pmax = float.MinValue;
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    float k = 0.0f;
+                    float result = 0.0f;
+                    do
+                    {
+                        float frequency = (float)Math.Pow(2.0, (float)k + 2.0f);
+                        float amplitude = (float)Math.Pow(persistence, (float)k + 1.0f);
+                        float value = Noise((frequency * j) / width, (frequency * i) / height, 0.0f);
+                        value = Math.Max(Math.Min(value + 0.5f, 1.0f), 0.0f);
+                        result += (value * amplitude);
+                        k += 1;
+                    } while (k < 6);
+                    if (result > max)
+                    {
+                        max = result;
+                    }
+                    if (result < min)
+                    {
+                        min = result;
+                    }
+                    buffer[i * width + j] = result;
+                }
+            }
+
+            float range = (max - min) / 2.0f;
+            float scale = 0.5f / range;
+
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    float result = buffer[i * width + j];
+
+                    result -= min;
+                    result -= range;
+                    result *= scale;
+                    result += 0.5f;
+
+                    if (result > pmax)
+                    {
+                        pmax = result;
+                    }
+                    if (result < pmin)
+                    {
+                        pmin = result;
+                    }
+
+                    pixels[i * width + j] = (byte)(result * 255);
+                }
+            }
+
+            return pixels;
+        }
+
         private const int GradientSizeTable = 256;
         private readonly Random m_random;
         private readonly float[] m_gradients = new float[GradientSizeTable * 3];

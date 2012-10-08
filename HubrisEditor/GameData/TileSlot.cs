@@ -247,7 +247,6 @@ namespace HubrisEditor.GameData
         private TileContent m_tileContent;
         private bool m_isInGameSpace;
         private int m_tileElevation = 4;
-        private int m_tileContentEnum;
         private static List<SolidColorBrush> s_elevationBrushes;
         private static int s_maxElevation;
         private static int s_minElevation;

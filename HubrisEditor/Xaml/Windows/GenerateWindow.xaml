@@ -30,8 +30,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">First Tile</TextBlock>
             <ComboBox ItemsSource="{Binding Path=TileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" x:Name="FirstComboBox" ItemTemplate="{StaticResource ResourceKey=TileTypesComboBoxTemplate}"/>
@@ -39,9 +37,6 @@
             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Second Tile</TextBlock>
             <ComboBox  ItemsSource="{Binding Path=TileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" x:Name="SecondComboBox" ItemTemplate="{StaticResource ResourceKey=TileTypesComboBoxTemplate}"/>
             <TextBox Width="75" Grid.Column="4" Grid.Row="2" x:Name="SecondTextBox"/>
-            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">Third Tile</TextBlock>
-            <ComboBox  ItemsSource="{Binding Path=TileTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Left" x:Name="ThirdComboBox" ItemTemplate="{StaticResource ResourceKey=TileTypesComboBoxTemplate}"/>
-            <TextBox Width="75" Grid.Column="4" Grid.Row="4" x:Name="ThirdTextBox"/>
             <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" FlowDirection="RightToLeft">
                 <Button Width="75" x:Name="CancelButton" Click="CancelButton_Click">Cancel</Button>
                 <Button Width="75" Margin="10, 0, 0, 0" IsDefault="True" x:Name="OKButton" Click="OKButton_Click">OK</Button>
