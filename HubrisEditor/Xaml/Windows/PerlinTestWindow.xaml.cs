@@ -26,10 +26,13 @@ namespace HubrisEditor.Xaml.Windows
 
             WriteableBitmap wb = new WriteableBitmap(512, 512, 96.0, 96.0, PixelFormats.Gray8, null);
             byte[] pixels = new byte[512 * 512];
+            float[] buffer = new float[512 * 512];
             PerlinNoise noise = new PerlinNoise(99);
             float persistence = 0.5f;
             float min = float.MaxValue;
             float max = float.MinValue;
+            float pmin = float.MaxValue;
+            float pmax = float.MinValue;
             for(int i = 0; i < 512; i++)
             {
                 for (int j = 0; j < 512; j++)
@@ -53,6 +56,33 @@ namespace HubrisEditor.Xaml.Windows
                     {
                         min = result;
                     }
+                    buffer[i * 512 + j] = result;
+                }
+            }
+
+            float range = (max - min) / 2.0f;
+            float scale = 0.5f / range;
+
+            for (int i = 0; i < 512; i++)
+            {
+                for (int j = 0; j < 512; j++)
+                {
+                    float result = buffer[i * 512 + j];
+
+                    result -= min;
+                    result -= range;
+                    result *= scale;
+                    result += 0.5f;
+
+                    if (result > pmax)
+                    {
+                        pmax = result;
+                    }
+                    if (result < pmin)
+                    {
+                        pmin = result;
+                    }
+
                     pixels[i * 512 + j] = (byte)(result * 255);
                 }
             }
