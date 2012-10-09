@@ -83,6 +83,7 @@ namespace HubrisEditor.Xaml.UserControls
             if (e.Key == Key.Space)
             {
                 IsPanningSystemActive = true;
+                e.Handled = true;
             }
             else
             {
@@ -270,6 +271,91 @@ namespace HubrisEditor.Xaml.UserControls
 
                 m_forceSelectionChanges = false;
             }
+        }
+
+        private void ListBoxItem_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if(m_selection.Count == 0)
+                {
+                    return;
+                }
+
+                e.Handled = true;
+
+                ListBoxItem lbi = sender as ListBoxItem;
+                TileSlot context = lbi.DataContext as TileSlot;
+                Scenario dataContext = DataContext as Scenario;
+
+                if (m_selection.Contains(context))
+                {
+                    return;
+                }
+
+                TileSlot last = m_selection.LastOrDefault<TileSlot>();
+
+                int contextIndex = dataContext.TileSlots.IndexOf(context);
+                int lastIndex = dataContext.TileSlots.IndexOf(last);
+                int min = Math.Min(contextIndex, lastIndex);
+                int delta = Math.Abs(contextIndex - lastIndex);
+                int minX = XFromListIndex(min);
+                int minY = YFromListIndex(min);
+                int maxX = XFromListIndex(min + delta);
+                int maxY = YFromListIndex(min + delta);
+                int minCornerX = Math.Min(minX, maxX);
+                int minCornerY = Math.Min(minY, maxY);
+                int maxCornerX = Math.Max(minX, maxX);
+                int maxCornerY = Math.Max(minY, maxY);
+                int minCornerIndex = ListIndexFromXY(minCornerX, minCornerY);
+                int maxCornerIndex = ListIndexFromXY(maxCornerX, maxCornerY);
+
+                for (int i = minCornerIndex; i <= maxCornerIndex; i++)
+                {
+                    int x = XFromListIndex(i);
+                    int y = YFromListIndex(i);
+
+                    if (x >= minCornerX && x <= maxCornerX && y >= minCornerY && y <= maxCornerY && !m_selection.Contains(dataContext.TileSlots.ElementAt<TileSlot>(i)))
+                    {
+                        m_selection.Add(dataContext.TileSlots.ElementAt<TileSlot>(i));
+                    }
+                }
+
+                m_forceSelectionChanges = true;
+
+                TileContentListBox.SelectedItems.Clear();
+                TilesListBox.SelectedItems.Clear();
+                ElevationListBox.SelectedItems.Clear();
+                UnitPlacementListBox.SelectedItems.Clear();
+
+                foreach (TileSlot item in SelectedTiles)
+                {
+                    TileContentListBox.SelectedItems.Add(item);
+                    TilesListBox.SelectedItems.Add(item);
+                    ElevationListBox.SelectedItems.Add(item);
+                    UnitPlacementListBox.SelectedItems.Add(item);
+                }
+
+                m_forceSelectionChanges = false;
+            }
+        }
+
+        private int ListIndexFromXY(int x, int y)
+        {
+            Scenario context = DataContext as Scenario;
+            return (y * context.CanvasSpaceWidth + x);
+        }
+
+        private int XFromListIndex(int listIndex)
+        {
+            Scenario context = DataContext as Scenario;
+            return (listIndex % context.CanvasSpaceWidth);
+        }
+
+        private int YFromListIndex(int listIndex)
+        {
+            Scenario context = DataContext as Scenario;
+            return (listIndex / context.CanvasSpaceWidth);
         }
 
         public ReadOnlyCollection<TileSlot> SelectedTiles
