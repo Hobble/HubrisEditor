@@ -436,6 +436,24 @@ namespace HubrisEditor
             window.Show();
         }
 
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.FocusedElement as TextBox == null && e.Key == Key.Space)
+            {
+                SlotGrid.HandleSpaceDown();
+                e.Handled = true;
+            }
+        }
+
+        private void Window_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.FocusedElement as TextBox == null && e.Key == Key.Space)
+            {
+                SlotGrid.HandleSpaceUp();
+                e.Handled = true;
+            }
+        }
+
         private Random m_random;
         private ProjectManager m_projectManager;
     }

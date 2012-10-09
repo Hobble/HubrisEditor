@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:HubrisEditor.Xaml.Controls"
         xmlns:userControls="clr-namespace:HubrisEditor.Xaml.UserControls"
-        Title="Map Editor" Height="350" Width="525" WindowState="Maximized">
+        Title="Map Editor" Height="350" Width="525" WindowState="Maximized" PreviewKeyDown="Window_PreviewKeyDown" PreviewKeyUp="Window_PreviewKeyUp">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

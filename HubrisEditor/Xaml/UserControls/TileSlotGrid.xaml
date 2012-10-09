@@ -123,7 +123,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel" PreviewKeyDown="ScrollViewer_PreviewKeyDown" PreviewKeyUp="ScrollViewer_PreviewKeyUp">
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                         <controls:PanZoomHost ContentScale="{Binding Path=Scale, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetX="{Binding Path=OffsetX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" ContentOffsetY="{Binding Path=OffsetY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
                             <ListBox x:Name="TilesListBox" ItemsSource="{Binding Path=TileSlots, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Style="{StaticResource ResourceKey=TileSlotListBoxStyle}" ItemContainerStyle="{StaticResource ResourceKey=TileSlotListBoxItemStyle}" ItemTemplate="{StaticResource ResourceKey=TileSlotTemplate}" SelectionMode="Extended" SelectionChanged="TilesListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListBox.ItemsPanel>

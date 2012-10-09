@@ -80,63 +80,55 @@ namespace HubrisEditor.Xaml.UserControls
 
         private void ScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            foreach (var slot in m_selection)
             {
-                IsPanningSystemActive = true;
-                e.Handled = true;
-            }
-            else
-            {
-                foreach (var slot in m_selection)
+                if (e.Key == Key.P)
                 {
-                    if (e.Key == Key.P)
-                    {
-                        slot.SetTileToCurrentlySelected();
-                    }
-                    if (e.Key == Key.U)
-                    {
-                        slot.SetPlacementToCurrentlySelected();
-                    }
-                    if (e.Key == Key.C)
-                    {
-                        slot.SetContentToCurrentlySelected();
-                    }
-                    else if (e.Key == Key.D0)
-                    {
-                        slot.TileElevation = 0;
-                    }
-                    else if (e.Key == Key.D1)
-                    {
-                        slot.TileElevation = 1;
-                    }
-                    else if (e.Key == Key.D2)
-                    {
-                        slot.TileElevation = 2;
-                    }
-                    else if (e.Key == Key.D3)
-                    {
-                        slot.TileElevation = 3;
-                    }
-                    else if (e.Key == Key.D4)
-                    {
-                        slot.TileElevation = 4;
-                    }
-                    else if (e.Key == Key.D5)
-                    {
-                        slot.TileElevation = 5;
-                    }
-                    else if (e.Key == Key.D6)
-                    {
-                        slot.TileElevation = 6;
-                    }
-                    else if (e.Key == Key.D7)
-                    {
-                        slot.TileElevation = 7;
-                    }
-                    else if (e.Key == Key.D8)
-                    {
-                        slot.TileElevation = 8;
-                    }
+                    slot.SetTileToCurrentlySelected();
+                }
+                if (e.Key == Key.U)
+                {
+                    slot.SetPlacementToCurrentlySelected();
+                }
+                if (e.Key == Key.C)
+                {
+                    slot.SetContentToCurrentlySelected();
+                }
+                else if (e.Key == Key.D0)
+                {
+                    slot.TileElevation = 0;
+                }
+                else if (e.Key == Key.D1)
+                {
+                    slot.TileElevation = 1;
+                }
+                else if (e.Key == Key.D2)
+                {
+                    slot.TileElevation = 2;
+                }
+                else if (e.Key == Key.D3)
+                {
+                    slot.TileElevation = 3;
+                }
+                else if (e.Key == Key.D4)
+                {
+                    slot.TileElevation = 4;
+                }
+                else if (e.Key == Key.D5)
+                {
+                    slot.TileElevation = 5;
+                }
+                else if (e.Key == Key.D6)
+                {
+                    slot.TileElevation = 6;
+                }
+                else if (e.Key == Key.D7)
+                {
+                    slot.TileElevation = 7;
+                }
+                else if (e.Key == Key.D8)
+                {
+                    slot.TileElevation = 8;
                 }
             }
         }
@@ -171,14 +163,16 @@ namespace HubrisEditor.Xaml.UserControls
             Mouse.Capture(null);
         }
 
-        private void ScrollViewer_PreviewKeyUp(object sender, KeyEventArgs e)
+        public void HandleSpaceDown()
         {
-            if (e.Key == Key.Space)
-            {
-                IsPanningSystemActive = false;
-                IsPanning = false;
-                Mouse.Capture(null);
-            }
+            IsPanningSystemActive = true;
+        }
+
+        public void HandleSpaceUp()
+        {
+            IsPanningSystemActive = false;
+            IsPanning = false;
+            Mouse.Capture(null);
         }
 
         private void TilesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
