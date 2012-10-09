@@ -44,6 +44,14 @@
             <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusBackground" Color="#FF00AE42"/>
             <SolidColorBrush x:Key="TilesListBoxSelectedNoFocusForeground" Color="Black"/>
             <Style x:Key="TileSlotListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+                <Style.Resources>
+                    <Storyboard x:Key="MainStoryboard">
+                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Shape.StrokeDashOffset)" RepeatBehavior="Forever">
+                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                            <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="10"/>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </Style.Resources>
                 <EventSetter Event="PreviewMouseDown" Handler="ListBoxItem_PreviewMouseDown"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -52,25 +60,25 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                            <Border x:Name="Bd" BorderThickness="2.5" Padding="0" SnapsToDevicePixels="true" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </Border>
+                            <Grid Background="White" x:Name="Gd">
+                                <Rectangle x:Name="Bd" Fill="Transparent" Stroke="Black" StrokeThickness="2.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StrokeDashArray="5" Visibility="Hidden"/>
+                                <ContentPresenter Margin="2.5" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
                             <ControlTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsInGameSpace, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Value="false">
-                                    <Setter Property="BorderBrush" TargetName="Bd" Value="Black"/>
+                                    <Setter Property="Background" TargetName="Gd" Value="Yellow"/>
                                 </DataTrigger>
                                 <Trigger Property="IsSelected" Value="true">
-                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ResourceKey=TilesListBoxSelectedBackground}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=TilesListBoxSelectedForeground}"/>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource ResourceKey=MainStoryboard}" x:Name="BSN"/>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="BSN"/>
+                                    </Trigger.ExitActions>
+                                    <Trigger.Setters>
+                                        <Setter Property="Visibility" Value="Visible" TargetName="Bd"/>
+                                    </Trigger.Setters>
                                 </Trigger>
-                                <MultiTrigger>
-                                    <MultiTrigger.Conditions>
-                                        <Condition Property="IsSelected" Value="true"/>
-                                        <Condition Property="Selector.IsSelectionActive" Value="false"/>
-                                    </MultiTrigger.Conditions>
-                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ResourceKey=TilesListBoxSelectedNoFocusBackground}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource ResourceKey=TilesListBoxSelectedNoFocusForeground}"/>
-                                </MultiTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
                                     <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                                 </Trigger>
